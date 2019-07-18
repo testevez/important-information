@@ -1,0 +1,27 @@
+stickySidebar:
+  version: 1.x
+  js:
+    js/sticky-sidebar.js: { attributes: { type: "module" } }
+  dependencies:
+    - core/jquery
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+
+stickySidebarJQuery:
+  version: 1.x
+  js:
+    js/jquery.sticky-sidebar.js: { attributes: { type: "module" } }
+  dependencies:
+  - important_information/stickySidebar
+
+importantInformationSidebar:
+  version: 1.x
+  css:
+    theme:
+     css/important-information.css: {}
+  js:
+    js/important_information_sidebar.js: {}
+  dependencies:
+  - important_information/stickySidebarJQuery

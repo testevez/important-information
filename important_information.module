@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function important_information_theme() {
+  return [
+    'important_information_sidebar' => [
+      'variables' => ['information' => NULL],
+    ],
+  ];
+}
