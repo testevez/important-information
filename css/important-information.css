@@ -26,6 +26,7 @@
     height: 33%;
     z-index: 25;
     overflow-y: auto;
+    box-shadow: 0 0 5px 0 lightgrey;
 }
 
 .layout-bottom > .container {
