@@ -37,7 +37,9 @@ class ImportantFooter extends BlockBase {
       '#theme' => 'important_information_footer',
       '#information' => $information,
       '#attached' => array(
-        'library' => array('important_information/importantInformationFooter'),
+        'library' => array(
+          'important_information/importantInformationFooter',
+        ),
       ),
     );
     return $variables;

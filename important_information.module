@@ -15,5 +15,36 @@ function important_information_theme() {
     'important_information_footer' => [
       'variables' => ['information' => NULL],
     ],
+    'important_information_bottom' => [
+      'variables' => ['information' => NULL],
+    ],
   ];
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function important_information_preprocess_page(&$vars) {
+
+  // Load content config.
+  $content = \Drupal::config('important_information.settings');
+  $body = $content->get('body');
+  $information = array(
+    '#type' => 'processed_text',
+    '#text' => $body['value'],
+    '#format' => $body['format'],
+  );
+  $render_array = array(
+    '#type' => 'markup',
+    '#theme' => 'important_information_bottom',
+    '#information' => $information,
+  );
+
+  // TODO: Add check for condition (do we need the bottom?
+  $vars['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
+    'markup' => render($render_array),
+    'container' => '.layout-container'
+  );
+  $vars['#attached']['library'][] = 'important_information/importantInformationBottom';
+
 }

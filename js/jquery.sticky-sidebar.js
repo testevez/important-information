@@ -1,4 +1,4 @@
-import StickySidebar from './sticky-sidebar';
+import StickySidebar from './sticky-sidebar.js';
 
 (() => {
 	if( 'undefined' === typeof window ) return;
