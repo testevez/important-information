@@ -12,5 +12,8 @@ function important_information_theme() {
     'important_information_sidebar' => [
       'variables' => ['information' => NULL],
     ],
+    'important_information_footer' => [
+      'variables' => ['information' => NULL],
+    ],
   ];
 }

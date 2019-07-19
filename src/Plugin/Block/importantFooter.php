@@ -8,15 +8,15 @@ use Drupal\views\Views;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Provides an Important Information block for a sidebar region.
+ * Provides an Important Information block for a footer region.
  *
  * @Block(
- *   id = "important_sidebar",
- *   admin_label = @Translation("Important Information: Sidebar"),
+ *   id = "important_footer",
+ *   admin_label = @Translation("Important Information: Footer"),
  *   category = @Translation("Important Information")
  * )
  */
-class ImportantSidebar extends BlockBase {
+class ImportantFooter extends BlockBase {
   /**
    * {@inheritdoc}
    */
@@ -34,13 +34,12 @@ class ImportantSidebar extends BlockBase {
     );
     $variables = array(
       '#type' => 'markup',
-      '#theme' => 'important_information_sidebar',
+      '#theme' => 'important_information_footer',
       '#information' => $information,
       '#attached' => array(
-        'library' => array('important_information/importantInformationSidebar'),
+        'library' => array('important_information/importantInformationFooter'),
       ),
     );
-    //$variables['#attached']['drupalSettings']['atsnj_ads']['landscapeAdsBlock']['interval'] = isset($config['interval']) ? $config['interval'] : '2500';
     return $variables;
   }
 
@@ -52,12 +51,14 @@ class ImportantSidebar extends BlockBase {
 
     $config = $this->getConfiguration();
 
-    $form['placeholder'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Time Interval'),
-      '#default_value' => isset($config['placeholder']) ? $config['placeholder'] : 'placeholder',
-      '#description' => $this->t('Placeholder.'),
-    ];
+    $form['body'] = array(
+      '#type' => 'text_format',
+      '#title' => 'Body',
+      '#format' => 'full_html',
+      '#default_value' => '<p>The quick brown fox jumped over the lazy dog.</p>',
+      '#description' => t(''),
+    );
+
 
     return $form;
   }

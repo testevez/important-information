@@ -1,0 +1,6 @@
+important_information.content:
+  title: 'Important Information'
+  description: 'Set the content of the Important Information.'
+  route_name: important_information.content
+  parent_id: system.admin_content
+  weight: 10

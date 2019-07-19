@@ -1,0 +1,7 @@
+important_information.content:
+  path: '/admin/content/important-information'
+  defaults:
+    _form: '\Drupal\important_information\Form\ImportantInformationContentForm'
+    _title: 'Important Information'
+  requirements:
+    _permission: 'administer important information content'
