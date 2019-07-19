@@ -43,7 +43,8 @@ function important_information_preprocess_page(&$vars) {
   // TODO: Add check for condition (do we need the bottom?
   $vars['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
     'markup' => render($render_array),
-    'container' => '.layout-container'
+    'container' => '.layout-container',
+    'verticalOffset' => 40, // TODO: make this configurable
   );
   $vars['#attached']['library'][] = 'important_information/importantInformationBottom';
 
