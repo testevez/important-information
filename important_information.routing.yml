@@ -5,3 +5,11 @@ important_information.content:
     _title: 'Important Information'
   requirements:
     _permission: 'administer important information content'
+
+important_information.modal:
+  path: 'important-information'
+  defaults:
+    _title: 'Important Information'
+    _controller: '\Drupal\important_information\Controller\ImportantInformationModalController::modal'
+  requirements:
+    _permission: 'access content'

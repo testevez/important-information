@@ -10,12 +10,15 @@
 function important_information_theme() {
   return [
     'important_information_sidebar' => [
-      'variables' => ['information' => NULL],
+      'variables' => ['information' => NULL, 'modal' => NULL],
     ],
     'important_information_footer' => [
-      'variables' => ['information' => NULL],
+      'variables' => ['information' => NULL, 'modal' => NULL],
     ],
     'important_information_bottom' => [
+      'variables' => ['information' => NULL],
+    ],
+    'important_information_modal' => [
       'variables' => ['information' => NULL],
     ],
   ];

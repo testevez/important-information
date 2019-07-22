@@ -4,8 +4,10 @@
  */
 namespace Drupal\important_information\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
-use Drupal\views\Views;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Component\Serialization\Json;
 
 /**
  * Provides an Important Information block for a sidebar region.
@@ -22,8 +24,6 @@ class ImportantSidebar extends BlockBase {
    */
   public function build() {
 
-    // Load block Config.
-    $config = $this->getConfiguration();
     // Load content config.
     $content = \Drupal::config('important_information.settings');
     $body = $content->get('body');
@@ -32,15 +32,39 @@ class ImportantSidebar extends BlockBase {
       '#text' => $body['value'],
       '#format' => $body['format'],
     );
+
     $variables = array(
       '#type' => 'markup',
-      '#theme' => 'important_information_sidebar',
+      '#theme' => 'important_information_footer',
       '#information' => $information,
       '#attached' => array(
-        'library' => array('important_information/importantInformationSidebar'),
+        'library' => array(
+          'important_information/importantInformationFooter',
+        ),
       ),
     );
-    //$variables['#attached']['drupalSettings']['atsnj_ads']['landscapeAdsBlock']['interval'] = isset($config['interval']) ? $config['interval'] : '2500';
+
+    // Load block Config.
+    $config = $this->getConfiguration();
+    // Check for full size button
+    if ($config['full_size_button'] || TRUE) {
+      $link_url = Url::fromRoute('important_information.modal');
+      $link_url->setOptions([
+        'attributes' => [
+          'class' => ['use-ajax', 'button', 'button--small'],
+          'data-dialog-type' => 'modal',
+          'data-dialog-options' => Json::encode(['width' => 400]),
+        ]
+      ]);
+
+      $variables['#modal'] =  array(
+        '#type' => 'markup',
+        '#markup' => Link::fromTextAndUrl(t('Open modal'), $link_url)->toString(),
+      );
+      ksm($variables['modal']);
+      $variables['#attached']['library'][] = ['core/drupal.dialog.ajax'];
+    }
+    ksm($variables);
     return $variables;
   }
 

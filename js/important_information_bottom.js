@@ -16,6 +16,8 @@
             var markup = drupalSettings.important_information.importantInformationBottom.markup;
             var verticalOffset = drupalSettings.important_information.importantInformationBottom.verticalOffset;
 
+            var footerSelector = '.layout-bottom'; // TODO: Make configurable
+
             if (!jQuery('#important-bottom-block-wrap').length) { //TODO: find a better way to check if its already appended
                 jQuery(container).append(markup);
             }
@@ -32,6 +34,9 @@
                     $('#block-importantinformationfooter:visible').hide();
                     $('#important-bottom-block-wrap:hidden').show();
                     // TODO: Make the selectors configurable
+                    $(footerSelector).removeClass('important-information-footer-opaque');
+                    $(footerSelector).addClass('important-information-footer-transparent');
+
                 }
 
                 if ($('#important-bottom-block-wrap').is(":visible")) {
@@ -45,6 +50,8 @@
                         $('#block-importantinformationsidebar').show();
                         $('#block-importantinformationfooter').show();
                         $('#important-bottom-block-wrap').hide();
+                        $(footerSelector).removeClass('important-information-footer-transparent');
+                        $(footerSelector).addClass('important-information-footer-opaque');
 
                     }
 

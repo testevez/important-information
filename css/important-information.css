@@ -3,6 +3,7 @@
 #block-importantinformationsidebar {
     background-color: white;
     padding: 1em;
+    padding-bottom: 0;
     z-index: 10;
     border: solid 2px #d93760;
     margin-bottom: 2em;
@@ -26,7 +27,9 @@
     height: 33%;
     z-index: 25;
     overflow-y: auto;
+    background: white;
     box-shadow: 0 0 5px 0 lightgrey;
+    /* TODO: Adjust JS so we can move some of tese rules to .important-information-footer-opaque */
 }
 
 .layout-bottom > .container {
@@ -34,6 +37,17 @@
     overflow-y: auto !important;
 }
 
+.important-information-footer-opaque {
+    background: white;
+    box-shadow: 0 0 5px 0 lightgrey;
+}
+
+
+
+.important-information-footer-transparent {
+    background: transparent !important;
+    box-shadow: none;
+}
 
 
 #block-importantinformationfooter {
