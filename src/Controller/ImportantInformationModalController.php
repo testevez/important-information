@@ -14,12 +14,22 @@ use Drupal\Core\Controller\ControllerBase;
 class ImportantInformationModalController extends ControllerBase {
 
   public function modal() {
+
+    // Load content config.
+    $content = \Drupal::config('important_information.settings');
+    $body = $content->get('body');
+    $information = array(
+      '#type' => 'processed_text',
+      '#text' => $body['value'],
+      '#format' => $body['format'],
+    );
+
     $options = [
       'dialogClass' => 'popup-dialog-class',
       'width' => '50%',
     ];
     $response = new AjaxResponse();
-    $response->addCommand(new OpenModalDialogCommand(t('Modal title'), t('The modal text'), $options));
+    $response->addCommand(new OpenModalDialogCommand(t('Modal title'), render($information), $options));
 
     return $response;
   }
