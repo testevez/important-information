@@ -6,10 +6,19 @@ important_information.content:
   requirements:
     _permission: 'administer important information content'
 
+important_information.modal_test:
+  path: 'modal-example/modal'
+  defaults:
+    _title: 'Modal'
+    _controller: '\Drupal\important_information\Controller\ImportantInformationModalController::modal'
+  requirements:
+    _permission: 'access content'
+
 important_information.modal:
-  path: 'important-information'
+  path: '/important-information'
   defaults:
     _title: 'Important Information'
     _controller: '\Drupal\important_information\Controller\ImportantInformationModalController::modal'
   requirements:
     _permission: 'access content'
+

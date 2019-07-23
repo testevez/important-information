@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\custom_modal\Plugin\Block\ModalBlock.
+ * Contains \Drupal\important_information\Plugin\Block\ModalBlock.
  */
 
-namespace Drupal\custom_modal\Plugin\Block;
+namespace Drupal\important_information\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
@@ -23,19 +23,7 @@ class ModalBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
-    // Load modal Config.
-    // $config = $this->getConfiguration();
-    // Load content config.
-    $content = \Drupal::config('important_information.settings');
-    $body = $content->get('body');
-    $information = array(
-      '#type' => 'processed_text',
-      '#text' => $body['value'],
-      '#format' => $body['format'],
-    );
-
-    $link_url = Url::fromRoute('important_information.modal');
+    $link_url = Url::fromRoute('important_information.modal_test');
     $link_url->setOptions([
       'attributes' => [
         'class' => ['use-ajax', 'button', 'button--small'],
@@ -46,8 +34,7 @@ class ModalBlock extends BlockBase {
 
     return array(
       '#type' => 'markup',
-      '#theme' => 'important_information_modal',
-      '#information' => $information,
+      '#markup' => Link::fromTextAndUrl(t('Open modal'), $link_url)->toString(),
       '#attached' => ['library' => ['core/drupal.dialog.ajax']]
     );
   }

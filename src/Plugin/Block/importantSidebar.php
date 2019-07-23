@@ -62,7 +62,7 @@ class ImportantSidebar extends BlockBase {
         '#markup' => Link::fromTextAndUrl(t('Open modal'), $link_url)->toString(),
       );
       ksm($variables['modal']);
-      $variables['#attached']['library'][] = ['core/drupal.dialog.ajax'];
+      $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
     ksm($variables);
     return $variables;
