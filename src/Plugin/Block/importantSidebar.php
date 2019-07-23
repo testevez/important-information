@@ -61,7 +61,6 @@ class ImportantSidebar extends BlockBase {
         '#type' => 'markup',
         '#markup' => Link::fromTextAndUrl(t('Full size'), $link_url)->toString(),
       );
-      $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
     return $variables;
   }
