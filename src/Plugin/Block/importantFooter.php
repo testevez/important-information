@@ -4,10 +4,8 @@
  */
 namespace Drupal\important_information\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\views\Views;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
-use Drupal\Component\Serialization\Json;
 
 /**
  * Provides an Important Information block for a footer region.
@@ -24,6 +22,8 @@ class ImportantFooter extends BlockBase {
    */
   public function build() {
 
+    // Load block Config.
+    $config = $this->getConfiguration();
     // Load content config.
     $content = \Drupal::config('important_information.settings');
     $body = $content->get('body');
@@ -32,7 +32,6 @@ class ImportantFooter extends BlockBase {
       '#text' => $body['value'],
       '#format' => $body['format'],
     );
-
     $variables = array(
       '#type' => 'markup',
       '#theme' => 'important_information_footer',
@@ -43,27 +42,6 @@ class ImportantFooter extends BlockBase {
         ),
       ),
     );
-
-    // Load block Config.
-    $config = $this->getConfiguration();
-    // Check for full size button
-    if ($config['full_size_button']) {
-      $link_url = Url::fromRoute('important_information.modal');
-      $link_url->setOptions([
-        'attributes' => [
-          'class' => ['use-ajax', 'button', 'button--small'],
-          'data-dialog-type' => 'modal',
-          'data-dialog-options' => Json::encode(['width' => 400]),
-        ]
-      ]);
-
-      $variables['#modal'] =  array(
-        '#type' => 'markup',
-        '#markup' => Link::fromTextAndUrl(t('Open modal'), $link_url)->toString(),
-      );
-      $variables['#attached']['library'][] = ['core/drupal.dialog.ajax'];
-    }
-
     return $variables;
   }
 
