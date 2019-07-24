@@ -7,7 +7,7 @@ important_information.content:
     _permission: 'administer important information content'
 
 important_information.settings:
-  path: '/admin/config/important-information'
+  path: '/admin/config/user-interface/important-information'
   defaults:
     _form: '\Drupal\important_information\Form\ImportantInformationSettingsForm'
     _title: 'Important Information'

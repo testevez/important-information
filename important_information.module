@@ -4,6 +4,11 @@
  * @file
  */
 
+define('v', 1);
+define('IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS', 2);
+define('IMPORTANT_INFORMATION_APPEND_BOTTOM_SIDEBAR', 3);
+define('IMPORTANT_INFORMATION_APPEND_BOTTOM_FOOTER', 4);
+
 /**
  * Implements hook_theme().
  */
@@ -29,26 +34,38 @@ function important_information_theme() {
  */
 function important_information_preprocess_page(&$vars) {
 
-  // Load content config.
-  $content = \Drupal::config('important_information.content');
-  $body = $content->get('body');
-  $information = array(
-    '#type' => 'processed_text',
-    '#text' => $body['value'],
-    '#format' => $body['format'],
-  );
-  $render_array = array(
-    '#type' => 'markup',
-    '#theme' => 'important_information_bottom',
-    '#information' => $information,
-  );
+  // Check if we need to append the II to the bottom of the page
+  $settings = \Drupal::config('important_information.settings');
+  $append_bottom = $settings->get('append_bottom');
+  $append_bottom_hide_sidebar = $settings->get('append_bottom_hide_sidebar');
+  $append_bottom_hide_footer = $settings->get('append_bottom_footer');
+  $vertical_offset = $settings->get('vertical_offset');
 
-  // TODO: Add check for condition (do we need the bottom?
-  $vars['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
-    'markup' => render($render_array),
-    'container' => '.layout-container',
-    'verticalOffset' => 40, // TODO: make this configurable
-  );
-  $vars['#attached']['library'][] = 'important_information/importantInformationBottom';
+  if (!$append_bottom == IMPORTANT_INFORMATION_APPEND_BOTTOM_NEVER) {
+
+    // Load content config.
+    $content = \Drupal::config('important_information.content');
+    $body = $content->get('body');
+    $information = array(
+      '#type' => 'processed_text',
+      '#text' => $body['value'],
+      '#format' => $body['format'],
+    );
+
+    $render_array = array(
+      '#type' => 'markup',
+      '#theme' => 'important_information_bottom',
+      '#information' => $information,
+    );
+    $vars['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
+      'markup' => render($render_array),
+      'container' => '.layout-container',
+      'verticalOffset' => $vertical_offset,
+      'hideSidebar' => $append_bottom_hide_sidebar,
+      'hideFooter' => $append_bottom_hide_footer,
+    );
+    $vars['#attached']['library'][] = 'important_information/importantInformationBottom';
+  }
+
 
 }

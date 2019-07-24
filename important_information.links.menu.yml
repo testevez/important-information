@@ -1,0 +1,5 @@
+important_information.settings:
+  title: Important Information
+  description: 'Configure the UI for Important Information.'
+  route_name: important_information.settings
+  parent: system.admin_config_ui
