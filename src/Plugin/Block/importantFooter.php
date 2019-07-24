@@ -3,6 +3,7 @@
  * @file
  */
 namespace Drupal\important_information\Plugin\Block;
+
 use Drupal\Core\Block\BlockBase;
 use Drupal\views\Views;
 use Drupal\Core\Form\FormStateInterface;
@@ -25,7 +26,7 @@ class ImportantFooter extends BlockBase {
     // Load block Config.
     $config = $this->getConfiguration();
     // Load content config.
-    $content = \Drupal::config('important_information.settings');
+    $content = \Drupal::config('important_information.content');
     $body = $content->get('body');
     $information = array(
       '#type' => 'processed_text',

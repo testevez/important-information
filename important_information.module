@@ -30,7 +30,7 @@ function important_information_theme() {
 function important_information_preprocess_page(&$vars) {
 
   // Load content config.
-  $content = \Drupal::config('important_information.settings');
+  $content = \Drupal::config('important_information.content');
   $body = $content->get('body');
   $information = array(
     '#type' => 'processed_text',

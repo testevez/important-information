@@ -16,7 +16,7 @@ class ImportantInformationModalController extends ControllerBase {
   public function modal() {
 
     // Load content config.
-    $content = \Drupal::config('important_information.settings');
+    $content = \Drupal::config('important_information.content');
     $body = $content->get('body');
     $information = array(
       '#type' => 'processed_text',

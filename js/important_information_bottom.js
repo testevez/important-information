@@ -10,6 +10,7 @@
      * @type {Drupal~behavior}
      */
     Drupal.behaviors.importantInformationBottom = {
+
         attach: function (context, settings) {
 
             var container = drupalSettings.important_information.importantInformationBottom.container;

@@ -8,12 +8,12 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Configure important_information content.
  */
-class ImportantInformationContentForm extends ConfigFormBase {
+class ImportantInformationSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'important_information_content';
+    return 'important_information_settings';
   }
 
   /**
@@ -21,7 +21,7 @@ class ImportantInformationContentForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'important_information.content',
+      'important_information.settings',
     ];
   }
 
@@ -29,15 +29,14 @@ class ImportantInformationContentForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('important_information.content');
-    $body = $config->get('body');
-    $form['body'] = array(
-      '#type' => 'text_format',
-      '#title' => 'Important Information',
-      '#format' => $body['format'],
-      '#default_value' => $body['value'],
-      '#description'  => $this->t('Set the Important Information markup.'),
-    );
+    $config = $this->config('important_information.settings');
+    $append_bottom = $config->get('append_bottom');
+    $form['append_bottom'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Append to Page Bottom'),
+      '#default_value' => isset($append_bottom) ? $append_bottom : FALSE,
+      '#description' => $this->t('Appends the II to the bottom of the page.'),
+    ];
     return parent::buildForm($form, $form_state);
   }
 
@@ -46,9 +45,9 @@ class ImportantInformationContentForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Retrieve the configuration
-    $this->configFactory->getEditable('important_information.content')
+    $this->configFactory->getEditable('important_information.settings')
       // Set the submitted configuration setting
-      ->set('body', $form_state->getValue('body'))
+      ->set('append_bottom', $form_state->getValue('append_bottom'))
       ->save();
 
     parent::submitForm($form, $form_state);
