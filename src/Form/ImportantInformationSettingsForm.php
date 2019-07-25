@@ -33,7 +33,7 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
     $settings = $this->config('important_information.settings');
     $append_bottom = $settings->get('append_bottom');
     $append_bottom_hide_sidebar = $settings->get('append_bottom_hide_sidebar');
-    $append_bottom_hide_footer = $settings->get('append_bottom_footer');
+    $append_bottom_hide_footer = $settings->get('append_bottom_hide_footer');
     $vertical_offset = $settings->get('vertical_offset');
 
     $form['bottom'] = array(
@@ -47,25 +47,23 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
       IMPORTANT_INFORMATION_APPEND_BOTTOM_FOOTER => 'Only when the footer block is on the page',
       IMPORTANT_INFORMATION_APPEND_BOTTOM_SIDEBAR => 'Only when the sidebar block is on the page',
     );
-    $form['bottom']['append_bottom'] = [
+    $form['bottom']['append_bottom'] = array (
       '#type' => 'radios',
       '#title' => $this->t('Append to Page Bottom'),
       '#default_value' => isset($append_bottom) ? $append_bottom : 'Never',
       '#multiple' => FALSE,
       '#options' => $options,
       '#description' => $this->t('Appends the II to the bottom of the page.'),
-    ];
+    );
     $form['bottom']['append_bottom_hide_sidebar'] = array (
       '#type' => 'checkbox',
       '#title' => $this->t('Hide sidebar when II Bottom is in the viewport.'),
       '#default_value' => isset($append_bottom_hide_sidebar) ? $append_bottom_hide_sidebar : FALSE,
-      '#options' => $options,
     );
     $form['bottom']['append_bottom_hide_footer'] = array (
       '#type' => 'checkbox',
       '#title' => $this->t('Hide footer when II Bottom is in the viewport.'),
       '#default_value' => isset($append_bottom_hide_footer) ? $append_bottom_hide_footer : FALSE,
-      '#options' => $options,
     );
     $form['bottom']['vertical_offset'] = array (
       '#type' => 'textfield',
