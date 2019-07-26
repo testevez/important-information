@@ -13,8 +13,7 @@
 
 /** Footer CSS **/
 
-
-.layout-bottom {
+#block-importantinformationfooter {
     position: fixed !important;
     bottom: 0;
     left: 0;
@@ -24,10 +23,21 @@
     overflow-y: auto;
     background: white;
     box-shadow: 0 0 5px 0 lightgrey;
-    /* TODO: Adjust JS so we can move some of tese rules to .important-information-footer-opaque */
+    /* TODO: Adjust JS so we can move some of these rules to .important-information-footer-opaque */
+}
+#block-importantinformationfooter .important-footer-content {
+    padding: 1em;
 }
 
-.layout-bottom > .container {
+.expandable-bar {
+    text-align: right;
+    background: lightgray;
+}
+.expandable-bar .expand-button {
+    color: white;
+}
+
+#block-importantinformationfooter > #important-footer-block-wrap {
     height: 100%;
     overflow-y: auto !important;
 }
@@ -37,23 +47,18 @@
     box-shadow: 0 0 5px 0 lightgrey;
 }
 
-
-
 .important-information-footer-transparent {
     background: transparent !important;
     box-shadow: none;
 }
 
-
-#block-importantinformationfooter {
-    margin-bottom:0;
-
-}
 @media screen and (min-width: 60rem) {
     #block-importantinformationfooter {
        /* display: none; */
     }
 }
+
+
 
 /** Bottom CSS **/
 #important-bottom-block-wrap {

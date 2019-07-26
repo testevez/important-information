@@ -47,6 +47,8 @@ class ImportantFooter extends BlockBase {
 
     // Load block Config.
     $config = $this->getConfiguration();
+
+    // Check for Modal
     if ($config['modal']) {
       $link_url = Url::fromRoute('important_information.modal');
       $link_url->setOptions([
@@ -64,6 +66,33 @@ class ImportantFooter extends BlockBase {
       $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
 
+    // Check for Expandability
+    if ($config['expand']['expandable']) {
+
+      $default_expand_markup = array(
+        '#type' => 'processed_text',
+        '#text' => $config['expand']['expand_button_markup']['value'],
+        '#format' => $config['expand']['expand_button_markup']['format'],
+      );
+
+      $variables['#expandable'] = TRUE;
+      $variables['#default_expand_markup'] = $default_expand_markup;
+      $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
+
+      $default_shrink_markup = array(
+        '#type' => 'processed_text',
+        '#text' => $config['expand']['shrink_button_markup']['value'],
+        '#format' => $config['expand']['shrink_button_markup']['format'],
+      );
+
+      // Add more scripts
+      $variables['#attached']['drupalSettings']['important_information']['importantInformationFooter'] = array(
+        'expandable' => TRUE,
+        'expandMarkup' => $default_expand_markup,
+        'shrinkMarkup' => render($default_shrink_markup),
+        'expandAmount' => $config['expand']['expandable_amount'],
+      );
+    }
 
     // Check if we need to append the II to the bottom of the page
     $settings = \Drupal::config('important_information.settings');
@@ -117,6 +146,39 @@ class ImportantFooter extends BlockBase {
       '#title' => $this->t('Hide at Page Bottom'),
       '#default_value' => isset($config['hide_at_bottom']) ? $config['hide_at_bottom'] : FALSE,
       '#description' => $this->t('Hides the II Sidebar in the event that the user has scrolled to the bottom of the page and an see the II there. Please note that there is a separate config that enables the II to appear at the bottom of the page (currently %status).', array('%status' => 'disabled')),
+    ];
+    $form['expand'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this
+        ->t('Expandable Footer controls'),
+    );
+    $form['expand']['expandable'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable Expand Button'),
+      '#default_value' => isset($config['expandable']) ? $config['expand']['expandable'] : FALSE,
+      '#description' => $this->t('Allows the user to expand the footer to see more of the content.'),
+    ];
+    $form['expand']['expandable_amount'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('% of Screen for Expanded Footer'),
+      '#default_value' => isset($config['expandable_amount']) ? $config['expand']['expandable_amount'] : IMPORTANT_INFORMATION_FOOTER_EXPANDED_PERCENT_DEFAULT,
+      '#description' => $this->t('Percentage of the screen the expanded footer will cover.'),
+    ];
+    $expand_button_markup = $config['expand']['expand_button_markup'];
+    $form['expand']['expand_button_markup'] =[
+      '#type' => 'text_format',
+      '#title' => 'Expand Button',
+      '#format' => $expand_button_markup['format'],
+      '#default_value' => $expand_button_markup['value'],
+      '#description'  => $this->t('Set markup for the expand button.'),
+    ];
+    $shrink_button_markup = $config['expand']['shrink_button_markup'];
+    $form['expand']['shrink_button_markup'] = [
+      '#type' => 'text_format',
+      '#title' => 'Un-expand button',
+      '#format' => $shrink_button_markup['format'],
+      '#default_value' => $shrink_button_markup['value'],
+      '#description'  => $this->t('Set markup for the un-expand button.'),
     ];
     unset($form['body']);
 

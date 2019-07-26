@@ -1,5 +1,12 @@
 
-<div id="important-footer-block-wrap">
-    {{ information }}
-    {{ modal }}
+<div id="important-footer-block-wrap"{% if expandable == true %} class="important-footer-expandable"{% endif %}>
+    {% if expandable == true %}
+        <div class="expandable-bar">
+            <div class="expand-button not-expanded">{{ default_expand_markup }}</div>
+        </div>
+    {% endif %}
+    <div class="important-footer-content">
+        {{ information }}
+        {{ modal }}
+    </div>
 </div>

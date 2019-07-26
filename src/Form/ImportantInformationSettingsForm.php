@@ -43,7 +43,7 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
     );
     $options = array(
       IMPORTANT_INFORMATION_APPEND_BOTTOM_NEVER => 'Never',
-      IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS => 'Always',
+      IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS => 'When either the footer or the sidebar is on the page',
       IMPORTANT_INFORMATION_APPEND_BOTTOM_FOOTER => 'Only when the footer block is on the page',
       IMPORTANT_INFORMATION_APPEND_BOTTOM_SIDEBAR => 'Only when the sidebar block is on the page',
     );
@@ -71,7 +71,6 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
       '#default_value' => isset($vertical_offset) ? $vertical_offset : 0,
       '#description' => $this->t('This value adjusts the detection of when to append the II to the bottom of the page. 40 is a good number for this value.'),
     );
-    // verticalOffset
     return parent::buildForm($form, $form_state);
   }
 
