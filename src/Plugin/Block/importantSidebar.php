@@ -3,6 +3,7 @@
  * @file
  */
 namespace Drupal\important_information\Plugin\Block;
+
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -46,7 +47,6 @@ class ImportantSidebar extends BlockBase {
 
     // Load block Config.
     $config = $this->getConfiguration();
-    // Check for full size button
     if ($config['modal']) {
       $link_url = Url::fromRoute('important_information.modal');
       $link_url->setOptions([
@@ -63,6 +63,37 @@ class ImportantSidebar extends BlockBase {
       );
       $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
+
+    // Check if we need to append the II to the bottom of the page
+    $settings = \Drupal::config('important_information.settings');
+    $append_bottom = $settings->get('append_bottom');
+    switch ($append_bottom) {
+      case IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS :
+      case IMPORTANT_INFORMATION_APPEND_BOTTOM_SIDEBAR :
+
+        // Load the rest of the details
+        $append_bottom_hide_sidebar = ($settings->get('append_bottom_hide_sidebar') === NULL);
+        $append_bottom_hide_footer = ($settings->get('append_bottom_footer') === NULL);
+        $vertical_offset = $settings->get('vertical_offset');
+
+        // Format information via TPL
+        $render_array = array(
+          '#type' => 'markup',
+          '#theme' => 'important_information_bottom',
+          '#information' => $information,
+        );
+
+        // Add more scripts
+        $variables['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
+          'markup' => render($render_array),
+          'container' => '.layout-container',
+          'verticalOffset' => $vertical_offset,
+          'hideSidebar' => $append_bottom_hide_sidebar,
+          'hideFooter' => $append_bottom_hide_footer,
+        );
+        $variables['#attached']['library'][] = 'important_information/importantInformationBottom';
+    }
+
     return $variables;
   }
 
@@ -86,7 +117,7 @@ class ImportantSidebar extends BlockBase {
       '#default_value' => isset($config['hide_at_bottom']) ? $config['hide_at_bottom'] : FALSE,
       '#description' => $this->t('Hides the II Sidebar in the event that the user has scrolled to the bottom of the page and an see the II there. Please note that there is a separate config that enables the II to appear at the bottom of the page (currently %status).', array('%status' => 'disabled')),
     ];
-
+    unset($form['body']);
     return $form;
   }
 

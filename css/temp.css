@@ -1,0 +1,22 @@
+
+/** TEMP / Make configurable **/
+
+/* Hides sidebar when portrait */
+@media screen and (max-width: 60rem) {
+    #block-importantinformationsidebar {
+        display: none;
+    }
+}
+
+/* Hides footer when landscape */
+@media screen and (min-width: 60rem) {
+
+    #block-importantinformationfooter {
+    // display: none;
+    }
+    .layout-bottom {
+        background: transparent !important;
+        box-shadow: none;
+    }
+
+}

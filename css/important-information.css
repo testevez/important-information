@@ -8,11 +8,6 @@
     border: solid 2px #d93760;
     margin-bottom: 2em;
 }
-@media screen and (max-width: 60rem) {
-    #block-importantinformationsidebar {
-        display: none;
-    }
-}
 
 
 
@@ -63,5 +58,14 @@
 /** Bottom CSS **/
 #important-bottom-block-wrap {
     margin-top: 2em;
-    display: none; /* Hide by default */
+   /* display: none; /* Hide by default */
  }
+
+/** All **/
+#block-importantinformationsidebar .button,
+#block-importantinformationfooter .button,
+#important-bottom-block-wrap .button,
+#important-bottom-block-wrap {
+    margin-bottom: 1em;
+}
+

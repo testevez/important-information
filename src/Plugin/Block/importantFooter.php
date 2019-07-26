@@ -5,8 +5,10 @@
 namespace Drupal\important_information\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\views\Views;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Component\Serialization\Json;
 
 /**
  * Provides an Important Information block for a footer region.
@@ -23,8 +25,7 @@ class ImportantFooter extends BlockBase {
    */
   public function build() {
 
-    // Load block Config.
-    $config = $this->getConfiguration();
+
     // Load content config.
     $content = \Drupal::config('important_information.content');
     $body = $content->get('body');
@@ -43,6 +44,57 @@ class ImportantFooter extends BlockBase {
         ),
       ),
     );
+
+    // Load block Config.
+    $config = $this->getConfiguration();
+    if ($config['modal']) {
+      $link_url = Url::fromRoute('important_information.modal');
+      $link_url->setOptions([
+        'attributes' => [
+          'class' => ['use-ajax', 'button', 'button--small'],
+          'data-dialog-type' => 'modal',
+          'data-dialog-options' => Json::encode(['width' => 400]),
+        ]
+      ]);
+
+      $variables['#modal'] =  array(
+        '#type' => 'markup',
+        '#markup' => Link::fromTextAndUrl(t('Full size'), $link_url)->toString(),
+      );
+      $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
+    }
+
+
+    // Check if we need to append the II to the bottom of the page
+    $settings = \Drupal::config('important_information.settings');
+    $append_bottom = $settings->get('append_bottom');
+    switch ($append_bottom) {
+      case IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS :
+      case IMPORTANT_INFORMATION_APPEND_BOTTOM_FOOTER :
+
+      // Load the rest of the details
+      $append_bottom_hide_sidebar = ($settings->get('append_bottom_hide_sidebar') === NULL);
+      $append_bottom_hide_footer = ($settings->get('append_bottom_footer') === NULL);
+      $vertical_offset = $settings->get('vertical_offset');
+
+      // Format information via TPL
+      $render_array = array(
+        '#type' => 'markup',
+        '#theme' => 'important_information_bottom',
+        '#information' => $information,
+      );
+
+      // Add more scripts
+      $variables['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
+        'markup' => render($render_array),
+        'container' => '.layout-container',
+        'verticalOffset' => $vertical_offset,
+        'hideSidebar' => $append_bottom_hide_sidebar,
+        'hideFooter' => $append_bottom_hide_footer,
+      );
+      $variables['#attached']['library'][] = 'important_information/importantInformationBottom';
+    }
+
     return $variables;
   }
 
@@ -54,13 +106,19 @@ class ImportantFooter extends BlockBase {
 
     $config = $this->getConfiguration();
 
-    $form['body'] = array(
-      '#type' => 'text_format',
-      '#title' => 'Body',
-      '#format' => 'full_html',
-      '#default_value' => '<p>The quick brown fox jumped over the lazy dog.</p>',
-      '#description' => t(''),
-    );
+    $form['modal'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable Full-size Modal'),
+      '#default_value' => isset($config['modal']) ? $config['modal'] : FALSE,
+      '#description' => $this->t('Provides a button to present the Important Information in a full screen modal.'),
+    ];
+    $form['hide_at_bottom'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide at Page Bottom'),
+      '#default_value' => isset($config['hide_at_bottom']) ? $config['hide_at_bottom'] : FALSE,
+      '#description' => $this->t('Hides the II Sidebar in the event that the user has scrolled to the bottom of the page and an see the II there. Please note that there is a separate config that enables the II to appear at the bottom of the page (currently %status).', array('%status' => 'disabled')),
+    ];
+    unset($form['body']);
 
 
     return $form;
