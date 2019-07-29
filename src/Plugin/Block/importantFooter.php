@@ -93,6 +93,9 @@ class ImportantFooter extends BlockBase {
         'expandAmount' => $config['expand']['expandable_amount'],
       );
     }
+    else {
+      $variables['#attached']['drupalSettings']['important_information']['importantInformationFooter'] = array('expandable' => FALSE);
+    }
 
     // Check if we need to append the II to the bottom of the page
     $settings = \Drupal::config('important_information.settings');
