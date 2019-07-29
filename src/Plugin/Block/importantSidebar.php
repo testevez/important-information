@@ -47,6 +47,15 @@ class ImportantSidebar extends BlockBase {
 
     // Load block Config.
     $config = $this->getConfiguration();
+
+    // Add block config to settings
+
+    $variables['#attached']['drupalSettings']['important_information']['importantInformationSidebar'] = array(
+      'sidebarParent' => isset($config['essential']['parent']) ? $config['essential']['parent'] : '',
+      'sidebarContainer' => isset($config['essential']['container']) ? $config['essential']['container'] : '',
+    );
+
+    // load more stuff if we need a modal
     if ($config['modal']) {
       $link_url = Url::fromRoute('important_information.modal');
       $link_url->setOptions([
@@ -104,7 +113,25 @@ class ImportantSidebar extends BlockBase {
     $form = parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
+    $form['essential'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this
+        ->t('Essential Fields'),
+      '#description' => $this->t('This block will not behave properly without these fields being set.'),
 
+    );
+    $form['essential']['parent'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Parent'),
+      '#default_value' => isset($config['essential']['parent']) ? $config['essential']['parent'] : '',
+      '#description' => $this->t('See https://abouolia.github.io/sticky-sidebar/#usage for more information.'),
+    ];
+    $form['essential']['container'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Container'),
+      '#default_value' => isset($config['essential']['container']) ? $config['essential']['container'] : '',
+      '#description' => $this->t('See https://abouolia.github.io/sticky-sidebar/#usage for more information.'),
+    ];
     $form['modal'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Full-size Modal'),
