@@ -3,13 +3,18 @@
 #block-importantinformationsidebar {
     background-color: white;
     padding: 1em;
-    padding-bottom: 0;
     z-index: 10;
     border: solid 2px #d93760;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
-
+/** Scrollable **/
+.important-sidebar-scrollable {
+    max-height: 500px;
+    /* overflow: scroll; */
+    scroll-behavior: auto;
+    overflow-y: scroll;
+}
 
 /** Footer CSS **/
 
