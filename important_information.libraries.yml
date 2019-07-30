@@ -2,6 +2,7 @@ stickySidebar:
   version: 1.x
   js:
     js/sticky-sidebar.js: { attributes: { type: "module" } }
+    js/ResizeSensor.js: {}
   dependencies:
     - core/jquery
     - core/drupal.ajax

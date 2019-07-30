@@ -18,17 +18,15 @@
             var verticalOffset = drupalSettings.important_information.importantInformationBottom.verticalOffset;
             var hideSidebar = drupalSettings.important_information.importantInformationBottom.hideSidebar;
             var hideFooter = drupalSettings.important_information.importantInformationBottom.hideFooter;
-
-
             var footerSelector = '.layout-bottom'; // TODO: Make configurable
 
             if (!jQuery('#important-bottom-block-wrap').length) { //TODO: find a better way to check if its already appended
-                jQuery(attach_to).append(markup);
+                jQuery('#block-appendedii').append(markup);
             }
 
             window.onscroll = function(ev) {
 
-                var height = $('#important-bottom-block-wrap').height();
+                var height = $(attach_to).height();
 
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                     // You're at the bottom of the page.
@@ -62,7 +60,7 @@
                             $('#block-importantinformationfooter:hidden').show();
                         }
                         if (hideFooter) {
-                            console.log('show footer');
+                            console.log('hide footer');
                             $(footerSelector).removeClass('important-information-footer-transparent');
                             $(footerSelector).addClass('important-information-footer-opaque');
                             $('#block-importantinformationfooter').show();

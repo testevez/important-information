@@ -93,6 +93,7 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
       ->set('append_bottom_hide_sidebar', $form_state->getValue('append_bottom_hide_sidebar'))
       ->set('append_bottom_hide_footer', $form_state->getValue('append_bottom_hide_footer'))
       ->set('vertical_offset', $form_state->getValue('vertical_offset'))
+      ->set('attach_to', $form_state->getValue('attach_to'))
       ->save();
 
     parent::submitForm($form, $form_state);
