@@ -35,11 +35,13 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
     $append_bottom_hide_sidebar = $settings->get('append_bottom_hide_sidebar');
     $append_bottom_hide_footer = $settings->get('append_bottom_hide_footer');
     $vertical_offset = $settings->get('vertical_offset');
+    $attach_to = $settings->get('attach_to');
 
     $form['bottom'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this
         ->t('Append Important Information (a.ka. II) to Bottom'),
+      '#collapsible' => TRUE,
     );
     $options = array(
       IMPORTANT_INFORMATION_APPEND_BOTTOM_NEVER => 'Never',
@@ -70,6 +72,12 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Vertical Offset.'),
       '#default_value' => isset($vertical_offset) ? $vertical_offset : 0,
       '#description' => $this->t('This value adjusts the detection of when to append the II to the bottom of the page. 40 is a good number for this value.'),
+    );
+    $form['bottom']['attach_to'] = array (
+      '#type' => 'textfield',
+      '#title' => $this->t('Attach to'),
+      '#default_value' => isset($attach_to) ? $attach_to : '',
+      '#description' => $this->t('Selector that determines to which object in the DOM to append() the II to.'),
     );
     return parent::buildForm($form, $form_state);
   }

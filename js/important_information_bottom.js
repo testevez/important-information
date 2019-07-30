@@ -13,7 +13,7 @@
 
         attach: function (context, settings) {
 
-            var container = drupalSettings.important_information.importantInformationBottom.container;
+            var attach_to = drupalSettings.important_information.importantInformationBottom.attach_to;
             var markup = drupalSettings.important_information.importantInformationBottom.markup;
             var verticalOffset = drupalSettings.important_information.importantInformationBottom.verticalOffset;
             var hideSidebar = drupalSettings.important_information.importantInformationBottom.hideSidebar;
@@ -23,7 +23,7 @@
             var footerSelector = '.layout-bottom'; // TODO: Make configurable
 
             if (!jQuery('#important-bottom-block-wrap').length) { //TODO: find a better way to check if its already appended
-                jQuery(container).append(markup);
+                jQuery(attach_to).append(markup);
             }
 
             window.onscroll = function(ev) {

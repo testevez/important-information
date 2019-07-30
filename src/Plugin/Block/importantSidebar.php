@@ -76,6 +76,7 @@ class ImportantSidebar extends BlockBase {
     // Check if we need to append the II to the bottom of the page
     $settings = \Drupal::config('important_information.settings');
     $append_bottom = $settings->get('append_bottom');
+
     switch ($append_bottom) {
       case IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS :
       case IMPORTANT_INFORMATION_APPEND_BOTTOM_SIDEBAR :
@@ -84,6 +85,7 @@ class ImportantSidebar extends BlockBase {
         $append_bottom_hide_sidebar = ($settings->get('append_bottom_hide_sidebar') === NULL);
         $append_bottom_hide_footer = ($settings->get('append_bottom_footer') === NULL);
         $vertical_offset = $settings->get('vertical_offset');
+        $attach_to = $settings->get('attach_to');
 
         // Format information via TPL
         $render_array = array(
@@ -95,7 +97,7 @@ class ImportantSidebar extends BlockBase {
         // Add more scripts
         $variables['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
           'markup' => render($render_array),
-          'container' => '.layout-container',
+          'attach_to' => $attach_to,
           'verticalOffset' => $vertical_offset,
           'hideSidebar' => $append_bottom_hide_sidebar,
           'hideFooter' => $append_bottom_hide_footer,
@@ -110,7 +112,14 @@ class ImportantSidebar extends BlockBase {
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
+
+
     $form = parent::blockForm($form, $form_state);
+
+    $form['instructions'] = [
+      '#markup' => '<h2>Instructions</h2><p>This is not a standard block. Turning on the <em>Display title</em> may have some unintended effect.</em></p>',
+    ];
+
 
     $config = $this->getConfiguration();
     $form['essential'] = array(
@@ -132,6 +141,29 @@ class ImportantSidebar extends BlockBase {
       '#default_value' => isset($config['essential']['container']) ? $config['essential']['container'] : '',
       '#description' => $this->t('See https://abouolia.github.io/sticky-sidebar/#usage for more information.'),
     ];
+    /*
+    $form['additional_markup'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this
+        ->t('Additional Markup'),
+      '#description' => $this->t('Markup for this block, in addition the the markup set in the Important Information content form.'),
+    );
+    $before = $config['additional_markup']['before'];
+    $form['additional_markup']['before'] = array(
+      '#type' => 'text_format',
+      '#title' => 'Before',
+      '#format' => $before['format'],
+      '#default_value' => $before['value'],
+    );
+
+    $after = $config['additional_markup']['after'];
+    $form['additional_markup']['after'] = array(
+      '#type' => 'text_format',
+      '#title' => 'After',
+      '#format' => $after['format'],
+      '#default_value' => $after['value'],
+    );
+    */
     $form['modal'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Full-size Modal'),
@@ -144,6 +176,7 @@ class ImportantSidebar extends BlockBase {
       '#default_value' => isset($config['hide_at_bottom']) ? $config['hide_at_bottom'] : FALSE,
       '#description' => $this->t('Hides the II Sidebar in the event that the user has scrolled to the bottom of the page and an see the II there. Please note that there is a separate config that enables the II to appear at the bottom of the page (currently %status).', array('%status' => 'disabled')),
     ];
+
     unset($form['body']);
     return $form;
   }
