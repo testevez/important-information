@@ -29,21 +29,19 @@
                 $('.expand-button').click(function() {
 
                     if ($(this).hasClass('not-expanded')) {
-                        $('#block-importantinformationfooter').animate({height:expandAmount+'%'}, 333, false, function(){
+                        $('#block-importantinformationfooter').stop();
+                        $('#block-importantinformationfooter').animate({height:expandAmount+'%'}, 333, 'swing', function(){
                             $('.expand-button').addClass('expanded');
                             $('.expand-button').removeClass('not-expanded');
                         });
-                        console.log('expand');
-
                     }
 
                     if ($(this).hasClass('expanded')) {
-                        $('#block-importantinformationfooter').animate({height:'33%'}, 333, false, function(){
+                        $('#block-importantinformationfooter').stop();
+                        $('#block-importantinformationfooter').animate({height:'33%'}, 333, 'swing', function(){
                             $('.expand-button').addClass('not-expanded');
                             $('.expand-button').removeClass('expanded');
                         });
-                        console.log('shrink');
-
                     }
 
                 });
