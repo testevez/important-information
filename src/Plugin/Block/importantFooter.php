@@ -88,7 +88,7 @@ class ImportantFooter extends BlockBase {
       // Add more scripts
       $variables['#attached']['drupalSettings']['important_information']['importantInformationFooter'] = array(
         'expandable' => TRUE,
-        'expandMarkup' => $default_expand_markup,
+        'expandMarkup' => render($default_expand_markup),
         'shrinkMarkup' => render($default_shrink_markup),
         'expandAmount' => $config['expand']['expandable_amount'],
       );
