@@ -26,10 +26,14 @@
 
             window.onscroll = function(ev) {
 
-                var height = $(attach_to).height();
+                //var height = $(attach_to).height();
 
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                    // You're at the bottom of the page.
+                var position = (window.innerHeight + window.scrollY);
+                var appendedIIStart = jQuery(attach_to).offset().top;
+
+                if (position >= appendedIIStart + verticalOffset) {
+                    // You're at the start of the appended II
+                    console.log('You\'re at the start of the appended II');
 
                     // Show / hide all the stuff (if we are supposed to)
                     if (hideSidebar) {
@@ -48,11 +52,9 @@
 
                 if ($('#important-bottom-block-wrap').is(":visible")) {
 
-                    var pos = window.innerHeight + window.scrollY + height + verticalOffset;
-                    var limit = document.body.offsetHeight ;
 
 
-                    if (pos < limit) {
+                    if (position < appendedIIStart + verticalOffset) {
 
                         // Show / hide all the stuff (if we are supposed to)
                         if (hideSidebar) {
@@ -60,7 +62,6 @@
                             $('#block-importantinformationfooter:hidden').show();
                         }
                         if (hideFooter) {
-                            console.log('hide footer');
                             $(footerSelector).removeClass('important-information-footer-transparent');
                             $(footerSelector).addClass('important-information-footer-opaque');
                             $('#block-importantinformationfooter').show();
