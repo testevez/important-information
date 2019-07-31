@@ -158,7 +158,7 @@ class ImportantFooter extends BlockBase {
     $form['expand']['expandable'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Expand Button'),
-      '#default_value' => isset($config['expandable']) ? $config['expand']['expandable'] : FALSE,
+      '#default_value' => isset($config['expand']['expandable']) ? $config['expand']['expandable'] : FALSE,
       '#description' => $this->t('Allows the user to expand the footer to see more of the content.'),
     ];
     $form['expand']['expandable_amount'] = [
