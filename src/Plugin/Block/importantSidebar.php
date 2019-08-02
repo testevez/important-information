@@ -33,7 +33,6 @@ class ImportantSidebar extends BlockBase {
       '#text' => $body['value'],
       '#format' => $body['format'],
     );
-
     $variables = array(
       '#type' => 'markup',
       '#theme' => 'important_information_sidebar',
@@ -49,7 +48,6 @@ class ImportantSidebar extends BlockBase {
     $config = $this->getConfiguration();
 
     // Add block config to settings
-
     $variables['#attached']['drupalSettings']['important_information']['importantInformationSidebar'] = array(
       'sidebarParent' => isset($config['essential']['parent']) ? $config['essential']['parent'] : '',
       'sidebarContainer' => isset($config['essential']['container']) ? $config['essential']['container'] : '',
