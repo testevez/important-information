@@ -5,7 +5,7 @@ namespace Drupal\important_information\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 
 /**
- * Defines the robot entity.
+ * Defines the important_information_config entity.
  *
  * The lines below, starting with '@ConfigEntityType,' are a plugin annotation.
  * These define the entity type to the entity type manager.
@@ -31,19 +31,19 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * @see annotation
  * @see Drupal\Core\Annotation\Translation
  *
- * @ingroup config_entity_example
+ * @ingroup important_information
  *
  * @ConfigEntityType(
- *   id = "robot",
- *   label = @Translation("Robot"),
- *   admin_permission = "administer robots",
+ *   id = "important_information_config",
+ *   label = @Translation("Important Information Configuration"),
+ *   admin_permission = "administer important_information_configs",
  *   handlers = {
- *     "access" = "Drupal\config_entity_example\RobotAccessController",
- *     "list_builder" = "Drupal\config_entity_example\Controller\RobotListBuilder",
+ *     "access" = "Drupal\important_information\ImportantInformationConfigAccessController",
+ *     "list_builder" = "Drupal\important_information\Controller\ImportantInformationConfigListBuilder",
  *     "form" = {
- *       "add" = "Drupal\config_entity_example\Form\RobotAddForm",
- *       "edit" = "Drupal\config_entity_example\Form\RobotEditForm",
- *       "delete" = "Drupal\config_entity_example\Form\RobotDeleteForm"
+ *       "add" = "Drupal\important_information\Form\ImportantInformationConfigAddForm",
+ *       "edit" = "Drupal\important_information\Form\ImportantInformationConfigEditForm",
+ *       "delete" = "Drupal\important_information\Form\ImportantInformationConfigDeleteForm"
  *     }
  *   },
  *   entity_keys = {
@@ -51,8 +51,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "label" = "label"
  *   },
  *   links = {
- *     "edit-form" = "/examples/config_entity_example/manage/{robot}",
- *     "delete-form" = "/examples/config_entity_example/manage/{robot}/delete"
+ *     "edit-form" = "/examples/important_information/manage/{important_information_config}",
  *   },
  *   config_export = {
  *     "id",
@@ -62,20 +61,34 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   }
  * )
  */
-class Content extends ConfigEntityBase {
+class ImportantInformationConfig extends ConfigEntityBase {
 
   /**
-   * The UUID.
+   * The important_information_config ID.
+   *
+   * @var string
+   */
+  public $id;
+
+  /**
+   * The important_information_config UUID.
    *
    * @var string
    */
   public $uuid;
 
   /**
-   * The body.
+   * The important_information_config label.
    *
    * @var string
    */
-  public $body;
+  public $label;
+
+  /**
+   * The important_information_config floopy flag.
+   *
+   * @var string
+   */
+  public $floopy;
 
 }

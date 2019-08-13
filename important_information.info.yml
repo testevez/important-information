@@ -6,3 +6,4 @@ package: PoC
 version: VERSION
 dependencies:
   - drupal:block
+  - config_entity_revisions
