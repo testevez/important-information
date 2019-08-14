@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\important_informaton\Form;
+namespace Drupal\important_information\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -14,7 +14,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Typically, we need to build the same form for both adding a new entity,
  * and editing an existing entity. Instead of duplicating our form code,
  * we create a base class. Drupal never routes to this class directly,
- * but instead through the child classes of ImportantInformationConfigAddForm and ImportantInformationConfigEditForm.
+ * but instead through the child classes of ImportantInformationConfigAddForm
+ * and ImportantInformationConfigEditForm.
  *
  * @ingroup important_information
  */
@@ -152,7 +153,7 @@ class ImportantInformationConfigFormBase extends EntityForm {
    *   An array of supported actions for the current entity form.
    */
   protected function actions(array $form, FormStateInterface $form_state) {
-    // Get the basic actins from the base class.
+    // Get the basic actions from the base class.
     $actions = parent::actions($form, $form_state);
 
     // Change the submit button text.
@@ -163,15 +164,10 @@ class ImportantInformationConfigFormBase extends EntityForm {
   }
 
   /**
-   * Overrides Drupal\Core\Entity\EntityFormController::validate().
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   An associative array containing the current state of the form.
+   * {@inheritdoc}
    */
-  public function validate(array $form, FormStateInterface $form_state) {
-    parent::validate($form, $form_state);
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
 
     // Add code here to validate your config entity's form elements.
     // Nothing to do here.

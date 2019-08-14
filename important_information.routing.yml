@@ -1,3 +1,5 @@
+# The routing.yml file defines the paths for our module.
+
 important_information.content:
   path: '/admin/content/important-information'
   defaults:
@@ -30,3 +32,59 @@ important_information.modal:
   requirements:
     _permission: 'access content'
 
+
+# Here we define the paths for our entity type's admin UI.
+
+# This is the router item for listing all entities.
+entity.important_information_config.list:
+  path: '/admin/content/important-information/important-information-config'
+  defaults:
+    # '_entity_list' tells Drupal to use an entity list controller.
+    # We give the entity ID here. Drupal then looks in the entity's annotation
+    # and looks for the "list" entry under "controllers" for the class to load.
+    # @see \Drupal\Core\Entity\Enhancer\EntityRouteEnhancer
+    _entity_list: important_information_config
+    _title: 'Important Information Config'
+  requirements:
+    _permission: 'administer important information settings'
+
+# This is the router item for adding our entity.
+entity.important_information_config.add_form:
+  path: '/admin/content/important-information/important-information-config/add'
+  defaults:
+    _title: 'Add important_information_config'
+    # Like _entity_list above, _entity_form gives the entity type ID, only this
+    # time also lists the form separated by a period. Drupal looks in the
+    # annotation for the entity and locates the "add" entry under "form" for
+    # the form class to load.
+    # @see \Drupal\Core\Entity\Enhancer\EntityRouteEnhancer
+    _entity_form: important_information_config.add
+  requirements:
+    _entity_create_access: important_information_config
+
+# This is the router item for editing our entity.
+entity.important_information_config.edit_form:
+  # Parameters may be passed to the form via the URL path. We name the
+  # parameter in the path by enclosing it in curly braces. For entity forms,
+  # we include the entity ID in the path by including a parameter with the
+  # same name as the entity type ID.
+  path: '/admin/content/important-information/important-information-config/manage/{important_information_config}'
+  defaults:
+    _title: 'Edit important_information_config'
+    # List our add entry above, this _entity_form entry instructs Drupal to
+    # read our entity type's annonation, and look for the "edit" entry under
+    # "form".
+    _entity_form: important_information_config.edit
+  requirements:
+    # This uses our entity access controller.
+    # @see \Drupal\Core\Entity\EntityAccessCheck
+    _entity_access: important_information_config.update
+
+# This is the router item for deleting an instance of our entity.
+entity.important_information_config.delete_form:
+  path: '/admin/content/important-information/important-information-config/manage/{important_information_config}/delete'
+  defaults:
+    _title: 'Delete important_information_config'
+    _entity_form: important_information_config.delete
+  requirements:
+    _entity_access: important_information_config.delete

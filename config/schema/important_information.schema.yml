@@ -7,7 +7,7 @@
 # Documentation for schema files like this one is located here:
 # https://drupal.org/node/1905070
 
-important_imformation.important_information_config_entity.*:
+important_information.important_information_config.*:
   type: config_entity
   label: 'Important Information Configuration Entity'
   mapping:

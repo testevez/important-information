@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\examples\Utility\DescriptionTemplateTrait;
 
 /**
- * Provides a listing of Important Information Configuration entities.
+ * Provides a listing of Important Information Config entities.
  *
  * List Controllers provide a list of entities in a tabular form. The base
  * class provides most of the rendering logic for us. The key functions
@@ -23,7 +23,7 @@ use Drupal\examples\Utility\DescriptionTemplateTrait;
  * Drupal loads the annotation for that entity type. It looks for the "list"
  * entry under "controllers" for the class to load.
  *
- * @ingroup config_entity_example
+ * @ingroup important_information
  */
 class ImportantInformationConfigListBuilder extends ConfigEntityListBuilder {
   use DescriptionTemplateTrait;
