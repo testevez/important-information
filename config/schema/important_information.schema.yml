@@ -7,9 +7,9 @@
 # Documentation for schema files like this one is located here:
 # https://drupal.org/node/1905070
 
-important_information.important_information_config.*:
+important_information.important_information_config.settings.*:
   type: config_entity
-  label: 'Important Information Configuration Entity'
+  label: 'Important Information Settings'
   mapping:
     id:
       type: string
@@ -20,9 +20,47 @@ important_information.important_information_config.*:
     label:
       type: label
       label: 'Label'
-    floopy:
+    force_intro:
       type: boolean
-      label: 'Floopy'
+      label: 'Force Important Information Intro'
+
+important_information.important_information_config.content.*:
+  type: config_entity
+  label: 'Important Information Content'
+  mapping:
+    id:
+      type: string
+      label: 'II Config Entity ID'
+    uuid:
+      type: string
+      label: 'UUID'
+    label:
+      type: label
+      label: 'Label'
+    important_information:
+      type: text
+      label: 'Important Information'
+    important_information_intro:
+      type: text
+      label: 'Important Information Intro'
+    sidebar_prefix:
+      type: text
+      label: 'Important Information Sidebar Prefix'
+    sidebar_suffix:
+      type: text
+      label: 'Important Information Sidebar Suffix'
+    container_prefix:
+      type: text
+      label: 'Important Information Container Prefix'
+    container_suffix:
+      type: text
+      label: 'Important Information Container Suffix'
+    footer_prefix:
+      type: text
+      label: 'Important Information Footer Prefix'
+    footer_suffix:
+      type: text
+      label: 'Important Information Footer Suffix'
     langcode:
       type: string
       label: 'Default language'

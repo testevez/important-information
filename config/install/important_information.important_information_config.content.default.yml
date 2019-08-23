@@ -9,12 +9,12 @@
 
 # For our config entity to be added at installation time, we have to place it in
 # the config/install directory of our module. Thus our file is located at:
-# config/install/important_information.important_information_config.content.yml.
+# config/install/important_information.important_information_config.content.default.yml.
 
 # You can see where these properties are defined in the annotation of
 # Drupal\important_information\Entity\ImportantInformationConfig.
 
 # The id of the config entity.
-id: content
+id: default_content
 # Our properties follow.
 label: 'Important Information Content'
