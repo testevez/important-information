@@ -31,11 +31,25 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $settings = $this->config('important_information.settings');
+
+    $force_intro = $settings->get('force_intro');
+
     $append_bottom = $settings->get('append_bottom');
     $append_bottom_hide_sidebar = $settings->get('append_bottom_hide_sidebar');
     $append_bottom_hide_footer = $settings->get('append_bottom_hide_footer');
     $vertical_offset = $settings->get('vertical_offset');
     $attach_to = $settings->get('attach_to');
+
+    $form['intro'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Important Information intro details'),
+      '#collapsible' => TRUE,
+    );
+    $form['intro']['force_intro'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Force all new visits to site to read Important Information intro.'),
+      '#default_value' => isset($force_intro) ? $force_intro : FALSE
+    );
 
     $form['bottom'] = array(
       '#type' => 'details',

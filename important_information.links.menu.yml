@@ -1,5 +1,17 @@
-important_information.settings:
+important_information.admin:
   title: Important Information
-  description: 'Configure the UI for Important Information.'
+  description: 'Configure Important Information.'
+  route_name: important_information.admin
+  parent: system.admin_config
+
+important_information.settings:
+  title: Settings
+  description: 'Configure the Settings for Important Information.'
   route_name: important_information.settings
-  parent: system.admin_config_ui
+  parent: important_information.admin
+
+important_information.content:
+  title: Content
+  description: 'Configure the Content for Important Information.'
+  route_name: important_information.settings
+  parent: important_information.admin

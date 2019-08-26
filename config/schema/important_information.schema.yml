@@ -1,0 +1,59 @@
+# Schema for the configuration files of the Important Information module.
+
+important_information.settings:
+  type: config_entity
+  label: 'Important Information Settings'
+  mapping:
+    id:
+      type: string
+      label: 'II Config Entity ID'
+    uuid:
+      type: string
+      label: 'UUID'
+    label:
+      type: label
+      label: 'Label'
+    force_intro:
+      type: boolean
+      label: 'Force Important Information Intro'
+
+important_information.content:
+  type: config_entity
+  label: 'Important Information Content'
+  mapping:
+    id:
+      type: string
+      label: 'II Config Entity ID'
+    uuid:
+      type: string
+      label: 'UUID'
+    label:
+      type: label
+      label: 'Label'
+    important_information:
+      type: text
+      label: 'Important Information'
+    important_information_intro:
+      type: text
+      label: 'Important Information Intro'
+    sidebar_prefix:
+      type: text
+      label: 'Important Information Sidebar Prefix'
+    sidebar_suffix:
+      type: text
+      label: 'Important Information Sidebar Suffix'
+    container_prefix:
+      type: text
+      label: 'Important Information Container Prefix'
+    container_suffix:
+      type: text
+      label: 'Important Information Container Suffix'
+    footer_prefix:
+      type: text
+      label: 'Important Information Footer Prefix'
+    footer_suffix:
+      type: text
+      label: 'Important Information Footer Suffix'
+    langcode:
+      type: string
+      label: 'Default language'

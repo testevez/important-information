@@ -1,18 +1,26 @@
-important_information.content:
-  path: '/admin/content/important-information'
+important_information.admin:
+  path: '/admin/config/important-information'
   defaults:
-    _form: '\Drupal\important_information\Form\ImportantInformationContentForm'
-    _title: 'Important Information'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Important Information Administration'
   requirements:
-    _permission: 'administer important information content'
+    _permission: 'administer important information settings+administer important information content'
 
 important_information.settings:
-  path: '/admin/config/user-interface/important-information'
+  path: '/admin/config/important-information/settings'
   defaults:
     _form: '\Drupal\important_information\Form\ImportantInformationSettingsForm'
-    _title: 'Important Information'
+    _title: 'Important Information Settings'
   requirements:
     _permission: 'administer important information settings'
+
+important_information.content:
+  path: '/admin/config/important-information/content'
+  defaults:
+    _form: '\Drupal\important_information\Form\ImportantInformationContentForm'
+    _title: 'Important Information Content'
+  requirements:
+    _permission: 'administer important information content'
 
 important_information.modal_test:
   path: 'modal-example/modal'
