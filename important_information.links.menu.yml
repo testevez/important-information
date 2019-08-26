@@ -13,5 +13,5 @@ important_information.settings:
 important_information.content:
   title: Content
   description: 'Configure the Content for Important Information.'
-  route_name: important_information.settings
+  route_name: important_information.content
   parent: important_information.admin
