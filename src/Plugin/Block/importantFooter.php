@@ -25,7 +25,6 @@ class ImportantFooter extends BlockBase {
    */
   public function build() {
 
-
     // Load content config.
     $content = \Drupal::config('important_information.content');
     $body = $content->get('body');
@@ -88,7 +87,7 @@ class ImportantFooter extends BlockBase {
       // Add more scripts
       $variables['#attached']['drupalSettings']['important_information']['importantInformationFooter'] = array(
         'expandable' => TRUE,
-        'expandMarkup' => $default_expand_markup,
+        'expandMarkup' => render($default_expand_markup),
         'shrinkMarkup' => render($default_shrink_markup),
         'expandAmount' => $config['expand']['expandable_amount'],
       );
@@ -108,6 +107,7 @@ class ImportantFooter extends BlockBase {
       $append_bottom_hide_sidebar = ($settings->get('append_bottom_hide_sidebar') === NULL);
       $append_bottom_hide_footer = ($settings->get('append_bottom_footer') === NULL);
       $vertical_offset = $settings->get('vertical_offset');
+      $attach_to = $settings->get('attach_to');
 
       // Format information via TPL
       $render_array = array(
@@ -123,6 +123,7 @@ class ImportantFooter extends BlockBase {
         'verticalOffset' => $vertical_offset,
         'hideSidebar' => $append_bottom_hide_sidebar,
         'hideFooter' => $append_bottom_hide_footer,
+        'attach_to' => $attach_to,
       );
       $variables['#attached']['library'][] = 'important_information/importantInformationBottom';
     }
