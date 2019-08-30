@@ -23,7 +23,7 @@ class AcknowledgeImportant extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $link_url = Url::fromRoute('important_information.modal');
+    $link_url = Url::fromRoute('important_information.intro_modal');
     $link_url->setOptions([
       'attributes' => [
         'class' => ['use-ajax', 'button', 'button--small'],

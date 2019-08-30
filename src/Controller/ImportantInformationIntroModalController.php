@@ -17,7 +17,7 @@ class ImportantInformationIntroModalController extends ControllerBase {
 
     // Load content config.
 
-    $config = $this->config('important_information.content');
+    $config = \Drupal::config('important_information.content');
     $value = $config->get('important_information_intro_value');
     $format = $config->get('important_information_intro_format');
     $title = $config->get('acknowledgement_modal_title');
