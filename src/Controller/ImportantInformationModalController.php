@@ -17,7 +17,7 @@ class ImportantInformationModalController extends ControllerBase {
 
     // Load content config.
     $content = \Drupal::config('important_information.content');
-    $body = $content->get('body');
+    $body = $content->get('important_formation');
     $information = array(
       '#type' => 'processed_text',
       '#text' => $body['value'],

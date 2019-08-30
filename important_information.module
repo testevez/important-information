@@ -32,6 +32,10 @@ function important_information_theme() {
     'important_information_bottom' => [
       'variables' => ['information' => NULL],
     ],
+    'important_information_acknowledgment_modal' => [
+      'variables' => ['information' => NULL, 'title' => NULL],
+    ],
+    // TODO:  delete this??
     'important_information_modal' => [
       'variables' => ['information' => NULL],
     ],

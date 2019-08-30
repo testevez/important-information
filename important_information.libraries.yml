@@ -27,7 +27,7 @@ importantInformationSidebar:
   dependencies:
   - important_information/stickySidebarJQuery
 
-importantInformationFooter:
+importantInformationFooter: #TODO: rename to importantInformationFloatingContainer
   version: 1.x
   css:
     theme:
@@ -48,3 +48,11 @@ importantInformationBottom:
     - core/drupal
     - core/drupalSettings
     - core/jquery.once
+
+importantInformationAcknowledge:
+    version: 1.x
+    js:
+      js/important_information_acknowledge.js: {}
+    css:
+      theme:
+        css/acknowledge-important.css: {}

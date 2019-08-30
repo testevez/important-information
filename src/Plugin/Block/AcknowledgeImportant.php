@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\important_information\Plugin\Block\ModalBlock.
+ * Contains \Drupal\important_information\Plugin\Block\AcknowledgeImportant.
  */
 
 namespace Drupal\important_information\Plugin\Block;
@@ -11,14 +11,14 @@ use Drupal\Core\Link;
 use Drupal\Component\Serialization\Json;
 
 /**
- * Provides a 'Modal' Block
+ * Provides a 'Modal' Block that checks for acknowledgement of the II
  *
  * @Block(
- *   id = "modal_block",
- *   admin_label = @Translation("Modal block"),
+ *   id = "acknowledge_important",
+ *   admin_label = @Translation("Important Information: Acknowledgement Modal"),
  * )
  */
-class ModalBlock extends BlockBase {
+class AcknowledgeImportant extends BlockBase {
   /**
    * {@inheritdoc}
    */
@@ -35,7 +35,13 @@ class ModalBlock extends BlockBase {
     return array(
       '#type' => 'markup',
       '#markup' => Link::fromTextAndUrl(t('Open modal'), $link_url)->toString(),
-      '#attached' => ['library' => ['core/drupal.dialog.ajax']]
+      '#attached' => [
+        'library' => [
+          'core/drupal.dialog.ajax',
+          'important_information/importantInformationAcknowledge'
+        ],
+
+      ]
     );
   }
 }

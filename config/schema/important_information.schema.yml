@@ -33,27 +33,51 @@ important_information.content:
     important_information:
       type: text
       label: 'Important Information'
-    important_information_intro:
+    important_information_intro_value:
       type: text
-      label: 'Important Information Intro'
-    sidebar_prefix:
+      label: 'Important Information Intro Value'
+    important_information_intro_format:
       type: text
-      label: 'Important Information Sidebar Prefix'
-    sidebar_suffix:
+      label: 'Important Information Intro Format'
+    sidebar_prefix_value:
       type: text
-      label: 'Important Information Sidebar Suffix'
-    container_prefix:
+      label: 'Important Information Sidebar Prefix Format'
+    sidebar_prefix_format:
       type: text
-      label: 'Important Information Container Prefix'
-    container_suffix:
+      label: 'Important Information Sidebar Prefix Value'
+    sidebar_suffix_value:
       type: text
-      label: 'Important Information Container Suffix'
-    footer_prefix:
+      label: 'Important Information Sidebar Suffix Value'
+    sidebar_suffix_format:
       type: text
-      label: 'Important Information Footer Prefix'
-    footer_suffix:
+      label: 'Important Information Sidebar Suffix Format'
+    container_prefix_value:
       type: text
-      label: 'Important Information Footer Suffix'
+      label: 'Important Information Container Prefix Value'
+    container_prefix_format:
+      type: text
+      label: 'Important Information Container Prefix Format'
+    container_suffix_value:
+      type: text
+      label: 'Important Information Container Suffix Value'
+    container_suffix_format:
+      type: text
+      label: 'Important Information Container Suffix Format'
+    footer_prefix_value:
+      type: text
+      label: 'Important Information Footer Prefix Value'
+    footer_prefix_format:
+      type: text
+      label: 'Important Information Footer Prefix Format'
+    footer_suffix_value:
+      type: text
+      label: 'Important Information Footer Suffix Value'
+    footer_suffix_format:
+      type: text
+      label: 'Important Information Footer Suffix Format'
+    acknowledgement_modal_title:
+      type: text
+      label: 'Acknowledgement Modal Title'
     langcode:
       type: string
       label: 'Default language'
