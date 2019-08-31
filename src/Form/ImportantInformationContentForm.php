@@ -100,46 +100,48 @@ class ImportantInformationContentForm extends ConfigFormBase {
       '#title' => $this->t('Additional Content for Floating Container'),
       '#collapsible' => TRUE,
     );
-    $prefix = $config->get('container_prefix');
-    $suffix = $config->get('container_suffix');
+    $value = $config->get('container_prefix_value');
+    $format = $config->get('container_prefix_format');
     $form['floating_container']['container_prefix'] = array(
       '#type' => 'text_format',
       '#title' => 'Floating Container Prefix',
-      '#format' => $prefix['format'],
-      '#default_value' => $prefix['value'],
+      '#format' => $format,
+      '#default_value' => $value,
       '#description'  => $this->t('Set additional markup to be displayed before the Important Information when displayed in the Floating Container.'),
     );
+    $value = $config->get('container_suffix_value');
+    $format = $config->get('container_suffix_format');
     $form['floating_container']['container_suffix'] = array(
       '#type' => 'text_format',
       '#title' => 'Floating Container Suffix',
-      '#format' => $suffix['format'],
-      '#default_value' => $suffix['value'],
+      '#format' => $format,
+      '#default_value' => $value,
       '#description'  => $this->t('Set additional markup to be displayed after the Important Information when displayed in the Floating Container.'),
     );
-/*
-    // Appended Bottom
-    $form['footer'] = array(
+    // Embedded Bottom
+    $form['embedded_bottom'] = array(
       '#type' => 'details',
-      '#title' => $this->t('Additional Content for Footer  /  Page Bottom'),
+      '#title' => $this->t('Additional Content for Embedded Bottom'),
       '#collapsible' => TRUE,
     );
-    $prefix = $config->get('footer_prefix');
-    $suffix = $config->get('footer_suffix');
-    $form['footer']['footer_prefix'] = array(
+    $value = $config->get('bottom_prefix_value');
+    $format = $config->get('bottom_prefix_format');
+    $form['embedded_bottom']['bottom_prefix'] = array(
       '#type' => 'text_format',
-      '#title' => 'Footer  /  Page Bottom Prefix',
-      '#format' => $prefix['format'],
-      '#default_value' => $prefix['value'],
-      '#description'  => $this->t('Set additional markup to be displayed before the Important Information when displayed in the Page Bottom.'),
+      '#title' => 'Embedded Bottom Prefix',
+      '#format' => $format,
+      '#default_value' => $value,
+      '#description'  => $this->t('Set additional markup to be displayed before the Important Information when displayed in the Embedded Bottom.'),
     );
-    $form['footer']['footer_suffix'] = array(
+    $value = $config->get('bottom_suffix_value');
+    $format = $config->get('bottom_suffix_format');
+    $form['embedded_bottom']['bottom_suffix'] = array(
       '#type' => 'text_format',
-      '#title' => 'Footer  /  Page Bottom Suffix',
-      '#format' => $suffix['format'],
-      '#default_value' => $suffix['value'],
-      '#description'  => $this->t('Set additional markup to be displayed after the Important Information when displayed in the Page Bottom.'),
+      '#title' => 'Embedded Bottom Suffix',
+      '#format' => $format,
+      '#default_value' => $value,
+      '#description'  => $this->t('Set additional markup to be displayed after the Important Information when displayed in the Embedded Bottom.'),
     );
-*/
     return parent::buildForm($form, $form_state);
   }
 
@@ -175,6 +177,15 @@ class ImportantInformationContentForm extends ConfigFormBase {
     $container_suffix_value = $container_suffix['value'];
     $container_suffix_format = $container_suffix['format'];
 
+    // Embedded Bottom
+    $bottom_prefix = $form_state->getValue('bottom_prefix');
+    $bottom_prefix_value = $bottom_prefix['value'];
+    $bottom_prefix_format = $bottom_prefix['format'];
+
+    $bottom_suffix = $form_state->getValue('bottom_suffix');
+    $bottom_suffix_value = $bottom_suffix['value'];
+    $bottom_suffix_format = $bottom_suffix['format'];
+
     $acknowledgement_modal_title = $form_state->getValue('acknowledgement_modal_title');
 
     $this->configFactory->getEditable('important_information.content')
@@ -191,6 +202,10 @@ class ImportantInformationContentForm extends ConfigFormBase {
       ->set('container_prefix_format', $container_prefix_format)
       ->set('container_suffix_value', $container_suffix_value)
       ->set('container_suffix_format', $container_suffix_format)
+      ->set('bottom_prefix_value', $bottom_prefix_value)
+      ->set('bottom_prefix_format', $bottom_prefix_format)
+      ->set('bottom_suffix_value', $bottom_suffix_value)
+      ->set('bottom_suffix_format', $bottom_suffix_format)
       ->set('acknowledgement_modal_title', $acknowledgement_modal_title)
       ->save();
     parent::submitForm($form, $form_state);

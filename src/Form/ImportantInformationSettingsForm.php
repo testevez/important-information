@@ -32,6 +32,42 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $settings = $this->config('important_information.settings');
 /*
+    // Sidebar
+    $sidebar_parent = $settings->get('sidebar_parent');
+    $sidebar_container = $settings->get('sidebar_container');
+    $form['sidebar'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Sticky Sidebar Settings'),
+      '#collapsible' => TRUE,
+    );
+    $form['sidebar']['sidebar_parent'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Parent'),
+      '#default_value' => isset($sidebar_parent) ? $sidebar_parent: '',
+      '#description' => $this->t('See https://abouolia.github.io/sticky-sidebar/#usage for more information.'),
+    ];
+    $form['sidebar']['sidebar_container'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Container'),
+      '#default_value' => isset($sidebar_container) ? $sidebar_container: '',
+      '#description' => $this->t('See https://abouolia.github.io/sticky-sidebar/#usage for more information.'),
+    ];
+*/
+    // Floating Container
+    $container_hide = $settings->get('container_hide');
+    $form['container'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Floating Container Settings'),
+      '#collapsible' => TRUE,
+    );
+    $form['container']['container_hide'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide/show Floating Container'),
+      '#default_value' => isset($container_hide) ? $container_hide: FALSE,
+      '#description' => $this->t('Hide Floating Container when Embedded bottom is in the viewport.'),
+    ];
+
+/*
     $force_intro = $settings->get('force_intro');
     $append_bottom = $settings->get('append_bottom');
     $append_bottom_hide_sidebar = $settings->get('append_bottom_hide_sidebar');
@@ -115,8 +151,11 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->configFactory->getEditable('important_information.settings')
       // Set the submitted configuration setting
-      //->set('force_intro', $form_state->getValue('force_intro'))
+      //->set('sidebar_parent', $form_state->getValue('sidebar_parent'))
+      //->set('sidebar_container', $form_state->getValue('sidebar_container'))
+      ->set('container_hide', $form_state->getValue('container_hide'))
       ->save();
+
     parent::submitForm($form, $form_state);
 
   }
