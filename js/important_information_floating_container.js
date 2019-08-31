@@ -9,7 +9,7 @@
     /**
      * @type {Drupal~behavior}
      */
-    Drupal.behaviors.importantInformationFooter = {
+    Drupal.behaviors.importantInformationFloatingContainer = {
         attach: function (context, settings) {
 
             // Keep the Floating Container at the right size
@@ -29,19 +29,19 @@
                 $('.expand-button').click(function() {
 
                     if ($(this).hasClass('not-expanded')) {
-                        $('#block-importantinformationfloatingcontainerr').stop();
+                        $('#block-importantinformationfloatingcontainer').stop();
                         $('.expand-button').html(shrinkMarkup);
-                        $('#block-importantinformationfloatingcontainerr').animate({height:expandAmount+'%'}, 333, 'swing', function(){
+                        $('#block-importantinformationfloatingcontainer').animate({height:expandAmount+'%'}, 333, 'swing', function(){
                             $('.expand-button').addClass('expanded');
                             $('.expand-button').removeClass('not-expanded');
                         });
                     }
 
                     if ($(this).hasClass('expanded')) {
-                        $('#block-importantinformationfloatingcontainerr').stop();
+                        $('#block-importantinformationfloatingcontainer').stop();
                         $('.expand-button').html(expandMarkup);
                         // TODO: Make the base percentage configurable (like expand amount)
-                        $('#block-importantinformationfloatingcontainerr').animate({height:'33%'}, 333, 'swing', function(){
+                        $('#block-importantinformationfloatingcontainer').animate({height:'33%'}, 333, 'swing', function(){
                             $('.expand-button').addClass('not-expanded');
                             $('.expand-button').removeClass('expanded');
                         });

@@ -56,6 +56,20 @@ class FloatingContainer extends BlockBase {
     // Load block Config.
     $config = $this->getConfiguration();
 
+    // Format information via TPL
+    $variables = array(
+      '#type' => 'markup',
+      '#theme' => 'important_information_floating_container',
+      '#information' => $information,
+      '#info_prefix' => isset($prefix_value) ?  $info_prefix : FALSE,
+      '#info_suffix' => isset($suffix_value) ?  $info_suffix : FALSE,
+      '#attached' => array(
+        'library' => array(
+          'important_information/importantInformationFloatingContainer',
+        ),
+      ),
+    );
+
     // Check for Modal
     if ($config['modal']) {
       $link_url = Url::fromRoute('important_information.modal');
@@ -102,54 +116,10 @@ class FloatingContainer extends BlockBase {
       );
     }
     else {
+      $variables['#expandable'] = FALSE;
       $variables['#attached']['drupalSettings']['important_information']['importantInformationFloatingContainer'] = array('expandable' => FALSE);
     }
 
-    // Format information via TPL
-    $variables = array(
-      '#type' => 'markup',
-      '#theme' => 'important_information_floating_container',
-      '#information' => $information,
-      '#info_prefix' => isset($prefix_value) ?  $info_prefix : FALSE,
-      '#info_suffix' => isset($suffix_value) ?  $info_suffix : FALSE,
-    );
-
-    // Check if we need to append the II to the bottom of the page
-
-    /*
-    $settings = \Drupal::config('important_information.settings');
-    $append_bottom = $settings->get('append_bottom');
-    switch ($append_bottom) {
-      case IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS :
-      case IMPORTANT_INFORMATION_APPEND_BOTTOM_FOOTER :
-
-      // Load the rest of the details
-      $append_bottom_hide_sidebar = ($settings->get('append_bottom_hide_sidebar') === NULL);
-      $append_bottom_hide_footer = ($settings->get('append_bottom_footer') === NULL);
-      $vertical_offset = $settings->get('vertical_offset');
-      $attach_to = $settings->get('attach_to');
-
-      // Format information via TPL
-      $render_array = array(
-        '#type' => 'markup',
-        '#theme' => 'important_information_bottom',
-        '#information' => $information,
-        '#prefix' => $prefix,
-        '#suffix' => $suffix,
-      );
-
-      // Add more scripts
-      $variables['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
-        'markup' => render($render_array),
-        'container' => '.layout-container',
-        'verticalOffset' => $vertical_offset,
-        'hideSidebar' => $append_bottom_hide_sidebar,
-        'hideFooter' => $append_bottom_hide_footer,
-        'attach_to' => $attach_to,
-      );
-      $variables['#attached']['library'][] = 'important_information/importantInformationBottom';
-    }
-*/
     return $variables;
   }
 
@@ -207,8 +177,6 @@ class FloatingContainer extends BlockBase {
       '#description'  => $this->t('Set markup for the un-expand button.'),
     ];
     unset($form['body']);
-
-
     return $form;
   }
 

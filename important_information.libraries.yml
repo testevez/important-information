@@ -22,6 +22,7 @@ importantInformationSidebar:
   css:
     theme:
      css/important-information.css: {}
+     css/sticky-sidebar.css: {}
   js:
     js/important_information_sidebar.js: {}
   dependencies:
@@ -32,6 +33,7 @@ importantInformationFloatingContainer:
   css:
     theme:
       css/important-information.css: {}
+      css/floating-container.css: {}
   js:
     js/important_information_floating_container.js: {}
 
