@@ -94,7 +94,6 @@ class ImportantInformationContentForm extends ConfigFormBase {
       '#default_value' => $value,
       '#description'  => $this->t('Set additional markup to be displayed after the Important Information when displayed in the Sticky Sidebar.'),
     );
-/*
     // Floating Container
     $form['floating_container'] = array(
       '#type' => 'details',
@@ -117,7 +116,7 @@ class ImportantInformationContentForm extends ConfigFormBase {
       '#default_value' => $suffix['value'],
       '#description'  => $this->t('Set additional markup to be displayed after the Important Information when displayed in the Floating Container.'),
     );
-
+/*
     // Appended Bottom
     $form['footer'] = array(
       '#type' => 'details',
@@ -158,6 +157,7 @@ class ImportantInformationContentForm extends ConfigFormBase {
     $important_information_value = $important_information['value'];
     $important_information_format = $important_information['format'];
 
+    // Sticky Sidebar
     $sidebar_prefix = $form_state->getValue('sidebar_prefix');
     $sidebar_prefix_value = $sidebar_prefix['value'];
     $sidebar_prefix_format = $sidebar_prefix['format'];
@@ -165,6 +165,15 @@ class ImportantInformationContentForm extends ConfigFormBase {
     $sidebar_suffix = $form_state->getValue('sidebar_suffix');
     $sidebar_suffix_value = $sidebar_suffix['value'];
     $sidebar_suffix_format = $sidebar_suffix['format'];
+
+    // Floating Container
+    $container_prefix = $form_state->getValue('container_prefix');
+    $container_prefix_value = $container_prefix['value'];
+    $container_prefix_format = $container_prefix['format'];
+
+    $container_suffix = $form_state->getValue('container_suffix');
+    $container_suffix_value = $container_suffix['value'];
+    $container_suffix_format = $container_suffix['format'];
 
     $acknowledgement_modal_title = $form_state->getValue('acknowledgement_modal_title');
 
@@ -178,6 +187,10 @@ class ImportantInformationContentForm extends ConfigFormBase {
       ->set('sidebar_prefix_format', $sidebar_prefix_format)
       ->set('sidebar_suffix_value', $sidebar_suffix_value)
       ->set('sidebar_suffix_format', $sidebar_suffix_format)
+      ->set('container_prefix_value', $container_prefix_value)
+      ->set('container_prefix_format', $container_prefix_format)
+      ->set('container_suffix_value', $container_suffix_value)
+      ->set('container_suffix_format', $container_suffix_format)
       ->set('acknowledgement_modal_title', $acknowledgement_modal_title)
       ->save();
     parent::submitForm($form, $form_state);

@@ -24,13 +24,13 @@ use Drupal\Core\Entity\EntityInterface;
 function important_information_theme() {
   return [
     'important_information_sidebar' => [
-      'variables' => ['information' => NULL, 'modal' => NULL],
+      'variables' => ['info_prefix' => NULL, 'info suffix' => NULL, 'information' => NULL, 'modal' => NULL],
     ],
-    'important_information_footer' => [
-      'variables' => ['information' => NULL, 'modal' => NULL, 'expandable' => NULL, 'default_expand_markup' => NULL],
+    'important_information_floating_container' => [
+      'variables' => ['information' => NULL, 'modal' => NULL, 'expandable' => NULL, 'default_expand_markup' => NULL, 'info_prefix' => NULL, 'info suffix' => NULL ],
     ],
     'important_information_bottom' => [
-      'variables' => ['information' => NULL],
+      'variables' => ['info_prefix' => NULL, 'info suffix' => NULL, 'information' => NULL],
     ],
     'important_information_acknowledgment_modal' => [
       'variables' => ['information' => NULL, 'title' => NULL],

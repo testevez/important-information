@@ -11,15 +11,16 @@ use Drupal\Core\Link;
 use Drupal\Component\Serialization\Json;
 
 /**
- * Provides an Important Information block for a footer region.
+ * Provides an Important Information block that floats above the site, hugging
+ * the bottom of the viewport.
  *
  * @Block(
- *   id = "important_footer",
- *   admin_label = @Translation("Important Information: Footer"),
+ *   id = "floating_container",
+ *   admin_label = @Translation("Important Information: Floating Container"),
  *   category = @Translation("Important Information")
  * )
  */
-class ImportantFooter extends BlockBase {
+class FloatingContainer extends BlockBase {
   /**
    * {@inheritdoc}
    */
@@ -27,23 +28,31 @@ class ImportantFooter extends BlockBase {
 
     // Load content config.
     $content = \Drupal::config('important_information.content');
-    $body = $content->get('body');
+
+    $important_information_value = $content->get('important_information_value');
+    $important_information_format = $content->get('important_information_format');
+
+    $prefix_value = $content->get('container_prefix_value');
+    $prefix_format = $content->get('container_prefix_format');
+
+    $suffix_value = $content->get('container_suffix_value');
+    $suffix_format = $content->get('container_suffix_format');
+
+    $info_prefix = array(
+      '#type' => 'processed_text',
+      '#text' => $prefix_value,
+      '#format' => $prefix_format,
+    );
     $information = array(
       '#type' => 'processed_text',
-      '#text' => $body['value'],
-      '#format' => $body['format'],
+      '#text' => $important_information_value,
+      '#format' => $important_information_format,
     );
-    $variables = array(
-      '#type' => 'markup',
-      '#theme' => 'important_information_footer',
-      '#information' => $information,
-      '#attached' => array(
-        'library' => array(
-          'important_information/importantInformationFooter',
-        ),
-      ),
+    $info_suffix = array(
+      '#type' => 'processed_text',
+      '#text' => $suffix_value,
+      '#format' => $suffix_format,
     );
-
     // Load block Config.
     $config = $this->getConfiguration();
 
@@ -85,7 +94,7 @@ class ImportantFooter extends BlockBase {
       );
 
       // Add more scripts
-      $variables['#attached']['drupalSettings']['important_information']['importantInformationFooter'] = array(
+      $variables['#attached']['drupalSettings']['important_information']['importantInformationFloatingContainer'] = array(
         'expandable' => TRUE,
         'expandMarkup' => render($default_expand_markup),
         'shrinkMarkup' => render($default_shrink_markup),
@@ -93,10 +102,21 @@ class ImportantFooter extends BlockBase {
       );
     }
     else {
-      $variables['#attached']['drupalSettings']['important_information']['importantInformationFooter'] = array('expandable' => FALSE);
+      $variables['#attached']['drupalSettings']['important_information']['importantInformationFloatingContainer'] = array('expandable' => FALSE);
     }
 
+    // Format information via TPL
+    $variables = array(
+      '#type' => 'markup',
+      '#theme' => 'important_information_floating_container',
+      '#information' => $information,
+      '#info_prefix' => isset($prefix_value) ?  $info_prefix : FALSE,
+      '#info_suffix' => isset($suffix_value) ?  $info_suffix : FALSE,
+    );
+
     // Check if we need to append the II to the bottom of the page
+
+    /*
     $settings = \Drupal::config('important_information.settings');
     $append_bottom = $settings->get('append_bottom');
     switch ($append_bottom) {
@@ -114,6 +134,8 @@ class ImportantFooter extends BlockBase {
         '#type' => 'markup',
         '#theme' => 'important_information_bottom',
         '#information' => $information,
+        '#prefix' => $prefix,
+        '#suffix' => $suffix,
       );
 
       // Add more scripts
@@ -127,7 +149,7 @@ class ImportantFooter extends BlockBase {
       );
       $variables['#attached']['library'][] = 'important_information/importantInformationBottom';
     }
-
+*/
     return $variables;
   }
 

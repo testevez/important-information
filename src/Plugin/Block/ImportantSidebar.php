@@ -27,16 +27,37 @@ class ImportantSidebar extends BlockBase {
 
     // Load content config.
     $content = \Drupal::config('important_information.content');
-    $body = $content->get('body');
+
+    $important_information_value = $content->get('important_information_value');
+    $important_information_format = $content->get('important_information_format');
+
+    $prefix_value = $content->get('sidebar_prefix_value');
+    $prefix_format = $content->get('sidebar_prefix_format');
+
+    $suffix_value = $content->get('sidebar_suffix_value');
+    $suffix_format = $content->get('sidebar_suffix_format');
+
+    $info_prefix = array(
+      '#type' => 'processed_text',
+      '#text' => $prefix_value,
+      '#format' => $prefix_format,
+    );
     $information = array(
       '#type' => 'processed_text',
-      '#text' => $body['value'],
-      '#format' => $body['format'],
+      '#text' => $important_information_value,
+      '#format' => $important_information_format,
     );
+    $info_suffix = array(
+      '#type' => 'processed_text',
+      '#text' => $suffix_value,
+      '#format' => $suffix_format,
+    );
+
     $variables = array(
-      '#type' => 'markup',
       '#theme' => 'important_information_sidebar',
       '#information' => $information,
+      '#info_prefix' => strlen($prefix_value) ?  $info_prefix : FALSE,
+      '#info_suffix' => strlen($suffix_value) ?  $info_suffix : FALSE,
       '#attached' => array(
         'library' => array(
           'important_information/importantInformationSidebar',
@@ -44,7 +65,9 @@ class ImportantSidebar extends BlockBase {
       ),
     );
 
-    // Load block Config.
+    return $variables;
+
+
     $config = $this->getConfiguration();
 
     // Add block config to settings
@@ -52,7 +75,7 @@ class ImportantSidebar extends BlockBase {
       'sidebarParent' => isset($config['essential']['parent']) ? $config['essential']['parent'] : '',
       'sidebarContainer' => isset($config['essential']['container']) ? $config['essential']['container'] : '',
     );
-
+/*
     // load more stuff if we need a modal
     if ($config['modal']) {
       $link_url = Url::fromRoute('important_information.modal');
@@ -102,7 +125,7 @@ class ImportantSidebar extends BlockBase {
         );
         $variables['#attached']['library'][] = 'important_information/importantInformationBottom';
     }
-
+*/
     return $variables;
   }
 
