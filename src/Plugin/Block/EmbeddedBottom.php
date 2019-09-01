@@ -76,6 +76,7 @@ class EmbeddedBottom extends BlockBase {
     // Load module settings
     $settings = \Drupal::config('important_information.settings');
     $container_hide = $settings->get('container_hide');
+    $offset = $settings->get('offset');
 
     // Format information via TPL
     $variables = array(
@@ -94,6 +95,7 @@ class EmbeddedBottom extends BlockBase {
     // Add block and module configuration to settings.
     $variables['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
       'showHideFloatingContainer' => $container_hide ? $container_hide : FALSE,
+      'offset' => $offset ? $offset : 0,
     );
     return $variables;
   }
@@ -123,6 +125,13 @@ class EmbeddedBottom extends BlockBase {
       '#default_value' => isset($container_hide) ? $container_hide: FALSE,
       '#description' => $this->t('Hide Floating Container when Embedded bottom is in the viewport.'),
     ];
+    $offset = $settings->get('offset');
+    $form['offset'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Hide/show Offset'),
+      '#default_value' => isset($offset) ? $offset: 0,
+      '#description' => $this->t('Adjust the calibration of the Embedded Bottom detection; lower than zero makes it happen faster.'),
+    ];
     unset($form['body']);
 
     return $form;
@@ -136,9 +145,8 @@ class EmbeddedBottom extends BlockBase {
 
     $this->configFactory->getEditable('important_information.settings')
       // Set the submitted configuration setting
-      //->set('sidebar_parent', $form_state->getValue('sidebar_parent'))
-      //->set('sidebar_container', $form_state->getValue('sidebar_container'))
       ->set('container_hide', $form_state->getValue('container_hide'))
+      ->set('offset', $form_state->getValue('offset'))
       ->save();
 
     $values = $form_state->getValues();

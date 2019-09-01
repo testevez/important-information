@@ -64,7 +64,13 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Hide/show Floating Container'),
       '#default_value' => isset($container_hide) ? $container_hide: FALSE,
-      '#description' => $this->t('Hide Floating Container when Embedded bottom is in the viewport.'),
+      '#description' => $this->t('Hide Floating Container when Embedded Bottom is in the viewport.'),
+    ];
+    $form['container']['offset'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Hide/show Offset'),
+      '#default_value' => isset($offset) ? $offset: 0,
+      '#description' => $this->t('Adjust the calibration of the Embedded Bottom detection; lower than zero makes it happen faster.'),
     ];
 
 /*
@@ -98,49 +104,7 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
       '#default_value' => isset($force_intro) ? $force_intro : FALSE,
       '#description' => $this->t('Users leaving  the site via in-site navigation will be  presented the Important Information interstitial in a modal.'),
     );
-/*
-    $form['footer'] = array(
-      '#type' => 'details',
-      '#title' => $this
-        ->t('Append Important Information (a.ka. II) to Bottom'),
-      '#collapsible' => TRUE,
-    );
-    $options = array(
-      IMPORTANT_INFORMATION_APPEND_BOTTOM_NEVER => 'Never',
-      IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS => 'When either the footer or the sidebar is on the page',
-      IMPORTANT_INFORMATION_APPEND_BOTTOM_FOOTER => 'Only when the footer block is on the page',
-      IMPORTANT_INFORMATION_APPEND_BOTTOM_SIDEBAR => 'Only when the sidebar block is on the page',
-    );
-    $form['footer']['append_bottom'] = array (
-      '#type' => 'radios',
-      '#title' => $this->t('Append to Page Bottom'),
-      '#default_value' => isset($append_bottom) ? $append_bottom : 'Never',
-      '#multiple' => FALSE,
-      '#options' => $options,
-      '#description' => $this->t('Appends the II to the bottom of the page.'),
-    );
-    $form['footer']['append_bottom_hide_sidebar'] = array (
-      '#type' => 'checkbox',
-      '#title' => $this->t('Hide sidebar when II Bottom is in the viewport.'),
-      '#default_value' => isset($append_bottom_hide_sidebar) ? $append_bottom_hide_sidebar : FALSE,
-    );
-    $form['footer']['append_bottom_hide_footer'] = array (
-      '#type' => 'checkbox',
-      '#title' => $this->t('Hide footer when II Bottom is in the viewport.'),
-      '#default_value' => isset($append_bottom_hide_footer) ? $append_bottom_hide_footer : FALSE,
-    );
-    $form['footer']['vertical_offset'] = array (
-      '#type' => 'textfield',
-      '#title' => $this->t('Vertical Offset.'),
-      '#default_value' => isset($vertical_offset) ? $vertical_offset : 0,
-      '#description' => $this->t('This value adjusts the detection of when to append the II to the bottom of the page. 40 is a good number for this value.'),
-    );
-    $form['footer']['attach_to'] = array (
-      '#type' => 'textfield',
-      '#title' => $this->t('Attach to'),
-      '#default_value' => isset($attach_to) ? $attach_to : '',
-      '#description' => $this->t('Selector that determines to which object in the DOM to append() the II to.'),
-    );
+
 */
     return parent::buildForm($form, $form_state);
   }
