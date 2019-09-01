@@ -4,18 +4,8 @@
  * @file
  */
 
-define('IMPORTANT_INFORMATION_APPEND_BOTTOM_NEVER', 1);
-define('IMPORTANT_INFORMATION_APPEND_BOTTOM_ALWAYS', 2);
-define('IMPORTANT_INFORMATION_APPEND_BOTTOM_SIDEBAR', 3);
-define('IMPORTANT_INFORMATION_APPEND_BOTTOM_FOOTER', 4);
 define('IMPORTANT_INFORMATION_FOOTER_EXPANDED_PERCENT_DEFAULT', 80);
-
-use Drupal\block\BlockRepository;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
-use Drupal\Component\Serialization\Json;
-use Drupal\Core\Entity\EntityInterface;
+define('IMPORTANT_INFORMATION_FOOTER_COLLAPSED_PERCENT_DEFAULT', 30);
 
 
 /**

@@ -137,12 +137,6 @@ class FloatingContainer extends BlockBase {
       '#default_value' => isset($config['modal']) ? $config['modal'] : FALSE,
       '#description' => $this->t('Provides a button to present the Important Information in a full screen modal.'),
     ];
-    $form['hide_at_bottom'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Hide at Page Bottom'),
-      '#default_value' => isset($config['hide_at_bottom']) ? $config['hide_at_bottom'] : FALSE,
-      '#description' => $this->t('Hides the II Sidebar in the event that the user has scrolled to the bottom of the page and an see the II there. Please note that there is a separate config that enables the II to appear at the bottom of the page (currently %status).', array('%status' => 'disabled')),
-    ];
     $form['expand'] = array(
       '#type' => 'fieldset',
       '#title' => $this
@@ -164,16 +158,16 @@ class FloatingContainer extends BlockBase {
     $form['expand']['expand_button_markup'] =[
       '#type' => 'text_format',
       '#title' => 'Expand Button',
-      '#format' => $expand_button_markup['format'],
-      '#default_value' => $expand_button_markup['value'],
+      '#format' => $expand_button_markup['format'] ? $expand_button_markup['format'] : NULL,
+      '#default_value' => $expand_button_markup['value'] ? $expand_button_markup['value'] : $this->t('Expand'),
       '#description'  => $this->t('Set markup for the expand button.'),
     ];
     $shrink_button_markup = $config['expand']['shrink_button_markup'];
     $form['expand']['shrink_button_markup'] = [
       '#type' => 'text_format',
       '#title' => 'Un-expand button',
-      '#format' => $shrink_button_markup['format'],
-      '#default_value' => $shrink_button_markup['value'],
+      '#format' => $shrink_button_markup['format'] ? $shrink_button_markup['format'] : NULL,
+      '#default_value' => $shrink_button_markup['value'] ? $shrink_button_markup['value'] : $this->t('Collapse'),
       '#description'  => $this->t('Set markup for the un-expand button.'),
     ];
     unset($form['body']);

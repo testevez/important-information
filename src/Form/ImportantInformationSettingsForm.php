@@ -54,7 +54,10 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
     ];
 */
     // Floating Container
+    $collapsed_percent = $settings->get('collapsed_percent');
+    $expanded_percent = $settings->get('expanded_percent');
     $container_hide = $settings->get('container_hide');
+
     $form['container'] = array(
       '#type' => 'details',
       '#title' => $this->t('Floating Container Settings'),
@@ -71,6 +74,18 @@ class ImportantInformationSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Hide/show Offset'),
       '#default_value' => isset($offset) ? $offset: 0,
       '#description' => $this->t('Adjust the calibration of the Embedded Bottom detection; lower than zero makes it happen faster.'),
+    ];
+    $form['container']['collapsed_percent'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Percentage of viewport the collapsed Floating Container occupies'),
+      '#default_value' => isset($collapsed_percent) ? $collapsed_percent: IMPORTANT_INFORMATION_FOOTER_COLLAPSED_PERCENT_DEFAULT,
+      '#description' => $this->t('Numbers only, do not add the %.'),
+    ];
+    $form['container']['expanded_percent'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Percentage of viewport the expanded Floating Container occupies'),
+      '#default_value' => isset($expanded_percent) ? $expanded_percent: IMPORTANT_INFORMATION_FOOTER_EXPANDED_PERCENT_DEFAULT,
+      '#description' => $this->t('Numbers only, do not add the %.'),
     ];
 
 /*

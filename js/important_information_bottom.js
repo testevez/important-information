@@ -16,7 +16,7 @@
             var showHideFloatingContainer =  drupalSettings.important_information.importantInformationBottom.showHideFloatingContainer;
             var floatingContainerSelector = '.block-floating-container';
             var offset =  drupalSettings.important_information.importantInformationBottom.offset;
-            
+
             window.onscroll = function(ev) {
 
                 if (showHideFloatingContainer)  {
