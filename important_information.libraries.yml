@@ -4,11 +4,11 @@ stickySidebar:
     js/sticky-sidebar.js: { attributes: { type: "module" } }
     js/ResizeSensor.js: {}
   dependencies:
-    - core/jquery
-    - core/drupal.ajax
-    - core/drupal
-    - core/drupalSettings
-    - core/jquery.once
+  - core/jquery
+  - core/drupal.ajax
+  - core/drupal
+  - core/drupalSettings
+  - core/jquery.once
 
 stickySidebarJQuery:
   version: 1.x
@@ -36,25 +36,38 @@ importantInformationFloatingContainer:
       css/floating-container.css: {}
   js:
     js/important_information_floating_container.js: {}
+  dependencies:
+  - core/jquery
+  - core/drupal.ajax
+  - core/drupal
+  - core/drupalSettings
+  - core/jquery.once
 
 importantInformationBottom:
   version: 1.x
   css:
     theme:
       css/important-information.css: {}
+      css/embedded-bottom.css: {}
   js:
     js/important_information_bottom.js: {}
   dependencies:
-    - core/jquery
-    - core/drupal.ajax
-    - core/drupal
-    - core/drupalSettings
-    - core/jquery.once
+  - core/jquery
+  - core/drupal.ajax
+  - core/drupal
+  - core/drupalSettings
+  - core/jquery.once
 
 importantInformationAcknowledge:
-    version: 1.x
-    js:
-      js/important_information_acknowledge.js: {}
-    css:
-      theme:
-        css/acknowledge-important.css: {}
+  version: 1.x
+  js:
+    js/important_information_acknowledge.js: {}
+  css:
+    theme:
+      css/acknowledge-important.css: {}
+  dependencies:
+  - core/jquery
+  - core/drupal.ajax
+  - core/drupal
+  - core/drupalSettings
+  - core/jquery.once

@@ -12,66 +12,32 @@
     Drupal.behaviors.importantInformationBottom = {
 
         attach: function (context, settings) {
-
-            var attach_to = drupalSettings.important_information.importantInformationBottom.attach_to;
-            var markup = drupalSettings.important_information.importantInformationBottom.markup;
-            var verticalOffset = drupalSettings.important_information.importantInformationBottom.verticalOffset;
-            var hideSidebar = drupalSettings.important_information.importantInformationBottom.hideSidebar;
-            var hideFooter = drupalSettings.important_information.importantInformationBottom.hideFooter;
-            var footerSelector = '.layout-bottom'; // TODO: Make configurable
-
-            if (!jQuery('#important-bottom-block-wrap').length) { //TODO: find a better way to check if its already appended
-                jQuery('#block-appendedii').append(markup);
-            }
+            var embeddedBottomSelector =  '.block-embedded-bottom';
+            var showHideFloatingContainer =  drupalSettings.important_information.importantInformationBottom.showHideFloatingContainer;
+            var floatingContainerSelector = '.block-floating-container';
 
             window.onscroll = function(ev) {
 
-                //var height = $(attach_to).height();
+                if (showHideFloatingContainer)  {
+                    var position = window.innerHeight + window.scrollY - jQuery(floatingContainerSelector).height();
+                    // Position value refers to bottom of the viewport (the bottom edge of the user's view)
+                    // We subtract the value of the height of the Floating Container  because it makes the viewport smaller
+                    console.log('position: ' + position);
+                    var bottomStart = jQuery(embeddedBottomSelector).offset().top;
+                    console.log('bottomStart: ' + bottomStart);
 
-                var position = (window.innerHeight + window.scrollY);
-                var appendedIIStart = jQuery(attach_to).offset().top;
-
-                if (position >= appendedIIStart + verticalOffset) {
-                    // You're at the start of the appended II
-                    console.log('You\'re at the start of the appended II');
-
-                    // Show / hide all the stuff (if we are supposed to)
-                    if (hideSidebar) {
-                        $('#block-importantinformationsidebar:visible').hide();
-                        $('#block-importantinformationfooter:visible').hide();
+                    //  Check  if the  Embedded  Bottom is viewable
+                    if (position >= bottomStart ) {
+                        // The Embedded Bottom is in  view
+                        jQuery(floatingContainerSelector).hide();
                     }
-                    if (hideFooter) {
 
-                        $(footerSelector).addClass('important-information-footer-transparent');
-                        $('#block-importantinformationfooter').hide();
-                        $(footerSelector).removeClass('important-information-footer-opaque');
-
-
-                    }
-                }
-
-                if ($('#important-bottom-block-wrap').is(":visible")) {
-
-
-
-                    if (position < appendedIIStart + verticalOffset) {
-
-                        // Show / hide all the stuff (if we are supposed to)
-                        if (hideSidebar) {
-                            $('#block-importantinformationsidebar:hidden').show();
-                            $('#block-importantinformationfooter:hidden').show();
-                        }
-                        if (hideFooter) {
-                            $(footerSelector).removeClass('important-information-footer-transparent');
-                            $(footerSelector).addClass('important-information-footer-opaque');
-                            $('#block-importantinformationfooter').show();
-
-                        }
-
+                    if (position <=  bottomStart)  {
+                        console.log('Bring back the FC');
+                        jQuery(floatingContainerSelector).show();
                     }
 
                 }
-
 
             };
 

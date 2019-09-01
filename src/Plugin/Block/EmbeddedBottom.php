@@ -73,6 +73,9 @@ class EmbeddedBottom extends BlockBase {
       );
       $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
+    // Load module settings
+    $settings = \Drupal::config('important_information.settings');
+    $container_hide = $settings->get('container_hide');
 
     // Format information via TPL
     $variables = array(
@@ -81,8 +84,17 @@ class EmbeddedBottom extends BlockBase {
       '#information' => $information,
       '#info_prefix' => isset($prefix_value) ?  $info_prefix : FALSE,
       '#info_suffix' => isset($suffix_value) ?  $info_suffix : FALSE,
+      '#attached' => array(
+        'library' => array(
+          'important_information/importantInformationBottom',
+        ),
+      ),
     );
 
+    // Add block and module configuration to settings.
+    $variables['#attached']['drupalSettings']['important_information']['importantInformationBottom'] = array(
+      'showHideFloatingContainer' => $container_hide ? $container_hide : FALSE,
+    );
     return $variables;
   }
 
@@ -92,6 +104,7 @@ class EmbeddedBottom extends BlockBase {
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
 
+    // Load  block configuration
     $config = $this->getConfiguration();
 
     $form['modal'] = [
@@ -101,6 +114,15 @@ class EmbeddedBottom extends BlockBase {
       '#description' => $this->t('Provides a button to present the Important Information in a full screen modal.'),
     ];
 
+    // Load module settings
+    $settings = \Drupal::config('important_information.settings');
+    $container_hide = $settings->get('container_hide');
+    $form['container_hide'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide/show Floating Container'),
+      '#default_value' => isset($container_hide) ? $container_hide: FALSE,
+      '#description' => $this->t('Hide Floating Container when Embedded bottom is in the viewport.'),
+    ];
     unset($form['body']);
 
     return $form;
@@ -111,6 +133,14 @@ class EmbeddedBottom extends BlockBase {
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
     parent::blockSubmit($form, $form_state);
+
+    $this->configFactory->getEditable('important_information.settings')
+      // Set the submitted configuration setting
+      //->set('sidebar_parent', $form_state->getValue('sidebar_parent'))
+      //->set('sidebar_container', $form_state->getValue('sidebar_container'))
+      ->set('container_hide', $form_state->getValue('container_hide'))
+      ->save();
+
     $values = $form_state->getValues();
     $this->configuration = $values;
   }

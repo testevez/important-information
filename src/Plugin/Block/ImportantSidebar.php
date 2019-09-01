@@ -65,18 +65,16 @@ class ImportantSidebar extends BlockBase {
       ),
     );
 
-    return $variables;
-
-
+    // Load block configuration.
     $config = $this->getConfiguration();
 
-    // Add block config to settings
+    // Add block configuration to settings.
     $variables['#attached']['drupalSettings']['important_information']['importantInformationSidebar'] = array(
       'sidebarParent' => isset($config['essential']['parent']) ? $config['essential']['parent'] : '',
       'sidebarContainer' => isset($config['essential']['container']) ? $config['essential']['container'] : '',
     );
-/*
-    // load more stuff if we need a modal
+
+    // Load more stuff if we need a modal.
     if ($config['modal']) {
       $link_url = Url::fromRoute('important_information.modal');
       $link_url->setOptions([
@@ -93,7 +91,7 @@ class ImportantSidebar extends BlockBase {
       );
       $variables['#attached']['library'][] = 'core/drupal.dialog.ajax';
     }
-
+/*
     // Check if we need to append the II to the bottom of the page
     $settings = \Drupal::config('important_information.settings');
     $append_bottom = $settings->get('append_bottom');
