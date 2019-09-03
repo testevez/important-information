@@ -9,6 +9,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\Form\ConfigFormBase;
+
 
 /**
  * Provides an Important Information block that floats above the site, hugging
@@ -143,7 +145,7 @@ class EmbeddedBottom extends BlockBase {
   public function blockSubmit($form, FormStateInterface $form_state) {
     parent::blockSubmit($form, $form_state);
 
-    $this->configFactory->getEditable('important_information.settings')
+    \Drupal::service('config.factory')->getEditable('important_information.settings')
       // Set the submitted configuration setting
       ->set('container_hide', $form_state->getValue('container_hide'))
       ->set('offset', $form_state->getValue('offset'))
